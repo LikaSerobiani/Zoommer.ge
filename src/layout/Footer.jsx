@@ -12,7 +12,7 @@ import PhoneIcon from "../components/Icons/PhoneIcon";
 export default function Footer() {
   return (
     <footer>
-      <div className="bg-light-grey">
+      <div className="bg-light-grey mt-[100px]">
         <div className="container py-[20px] flex gap-[120px]">
           {/* navigation */}
           <div className="flex flex-col gap-[20px]">
