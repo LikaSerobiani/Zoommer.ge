@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Images/main-logo.svg";
 import Search from "./Search";
 import Button from "../../components/Button/Index";
+import useStore from "../../Hooks/Store";
 // Icons
 import CartIcon from "../../components/Icons/CartIcon";
 import UserIcon from "../../components/Icons/UserIcon";
@@ -15,7 +16,7 @@ import PhoneIcon from "../../components/Icons/PhoneIcon";
 
 export default function Header() {
   const navigate = useNavigate();
-
+  const { cartCount } = useStore();
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
 
@@ -32,6 +33,14 @@ export default function Header() {
   const handleProfilePage = () => {
     navigate("/profile");
   };
+
+  const ButtonWithCartCount = ({ cartCount }) => (
+    <Button
+      children={`კალათა (${cartCount || 0})`}
+      icon={<CartIcon width="24px" height="24px" />}
+      className="bg-white text-black"
+    />
+  );
 
   return (
     <header>
@@ -74,11 +83,7 @@ export default function Header() {
             {/* Buttons */}
             <div className="flex gap-[18px]">
               <Link to="/cart">
-                <Button
-                  children="კალათა"
-                  icon={<CartIcon />}
-                  className="bg-white text-black"
-                />
+                <ButtonWithCartCount cartCount={cartCount} />
               </Link>
               {isLoggedIn ? (
                 <Button
