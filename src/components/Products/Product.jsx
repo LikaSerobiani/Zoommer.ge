@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../Button/Index";
 import CartIcon from "../Icons/CartIcon";
 
-const Product = ({ product, addToCart }) => {
+const Product = ({ product }) => {
   return (
     <div className="flex gap-[8px] flex-col h-[303px] bg-white justify-center">
       <div>
@@ -18,7 +18,7 @@ const Product = ({ product, addToCart }) => {
       <div>
         <Button
           children="დამატება"
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
           className="bg-orange text-black rounded-[5px] text-[13px] "
           icon={<CartIcon width="20px" height="20px" />}
         />

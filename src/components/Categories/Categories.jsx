@@ -10,7 +10,7 @@ export default function Categories() {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}product-category`
+        `${import.meta.env.VITE_API_BASE_URL}/product-category`
       );
       setCategories(response.data);
     } catch (error) {
@@ -20,7 +20,7 @@ export default function Categories() {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  });
 
   return (
     <div className="flex flex-row gap-[65px] font-medium justify-center mt-[20px]">

@@ -1,26 +1,13 @@
 // Products.js
-import React, { useEffect } from "react";
-
-import useStore from "../../Hooks/Store";
+import React from "react";
 import Product from "./Product";
 
-const Products = () => {
-  const { fetchProducts, addToCart, removeFromCart, products } = useStore();
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
+const Products = ({ products }) => {
   return (
     <div className="flex gap-[20px] mt-[100px]">
       {products &&
         products.map((product) => (
-          <Product
-            key={product.id}
-            product={product}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-          />
+          <Product key={product.id} product={product} />
         ))}
     </div>
   );

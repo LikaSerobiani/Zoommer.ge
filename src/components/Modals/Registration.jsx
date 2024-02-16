@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// RegistrationModal.js
+
 import React, { useState } from "react";
 import axios from "axios";
 import Modal from "./Modal";
@@ -18,24 +18,24 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/register`,
+        `${import.meta.env.VITE_API_BASE_URL}auth/register`,
         {
-          firstName,
-          lastName,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber,
           email,
-          phoneNumber,
           password,
         }
       );
-
-      console.log(response);
-      onRegistered(true);
-      handleClose(true);
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setPhoneNumber("");
+      if ((response.status === 200, 201)) {
+        onRegistered(true);
+        handleClose(true);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setPhoneNumber("");
+      }
     } catch (error) {
       console.error("Registration Error:", error);
     }

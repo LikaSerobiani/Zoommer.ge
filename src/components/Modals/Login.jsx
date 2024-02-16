@@ -3,12 +3,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Modal from "./Modal";
 import Input from "../Input/Index";
 import Button from "../Button/Index";
 import Registration from "./Registration";
+import { login } from "../../services/services";
 
 const Login = ({ showModal, handleClose, onLoggedIn }) => {
   const [email, setEmail] = useState("");
@@ -17,14 +17,14 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = login({
+        email: email,
+        password: password,
+      });
 
+      const { access_token, refresh_token } = response;
+
+      localStorage.setItem("accessToken", access_token);
       onLoggedIn(true);
       handleClose(true);
       setEmail("");
@@ -40,10 +40,6 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
   const handleCloseRegistrationModal = () => {
     setShowRegistrationModal(false);
   };
-
-  useEffect(() => {
-    handleLogin();
-  }, []);
 
   return (
     <>

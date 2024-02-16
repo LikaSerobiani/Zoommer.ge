@@ -2,11 +2,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../assets/Images/main-logo.svg";
+
 import Search from "./Search";
 import Button from "../../components/Button/Index";
-import useStore from "../../Hooks/Store";
 // Icons
+import Logo from "../../assets/Images/main-logo.svg";
 import CartIcon from "../../components/Icons/CartIcon";
 import UserIcon from "../../components/Icons/UserIcon";
 import DotsIcon from "../../components/Icons/DotsIcon";
@@ -16,7 +16,7 @@ import PhoneIcon from "../../components/Icons/PhoneIcon";
 
 export default function Header() {
   const navigate = useNavigate();
-  const { cartCount } = useStore();
+
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
 
@@ -34,14 +34,6 @@ export default function Header() {
     navigate("/profile");
   };
 
-  const ButtonWithCartCount = ({ cartCount }) => (
-    <Button
-      children={`კალათა (${cartCount || 0})`}
-      icon={<CartIcon width="24px" height="24px" />}
-      className="bg-white text-black"
-    />
-  );
-
   return (
     <header>
       <div className="bg-primary py-3">
@@ -52,7 +44,7 @@ export default function Header() {
               *7007 / +995 (32) 2 60 30 60
             </span>
           </div>
-          <div>dark and light mode</div>
+          <div></div>
         </div>
       </div>
 
@@ -83,7 +75,11 @@ export default function Header() {
             {/* Buttons */}
             <div className="flex gap-[18px]">
               <Link to="/cart">
-                <ButtonWithCartCount cartCount={cartCount} />
+                <Button
+                  children="კალათა"
+                  icon={<CartIcon width="24px" height="24px" />}
+                  className="bg-white text-black"
+                />
               </Link>
               {isLoggedIn ? (
                 <Button
