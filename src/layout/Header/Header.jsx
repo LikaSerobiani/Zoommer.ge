@@ -11,7 +11,6 @@ import CartIcon from "../../components/Icons/CartIcon";
 import UserIcon from "../../components/Icons/UserIcon";
 import DotsIcon from "../../components/Icons/DotsIcon";
 import Login from "../../components/Modals/Login";
-import Success from "../../components/Modals/Success";
 import PhoneIcon from "../../components/Icons/PhoneIcon";
 
 export default function Header() {
@@ -20,14 +19,11 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
 
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
-    setShowSuccessModal(true);
   };
 
   const handleProfilePage = () => {
@@ -44,7 +40,6 @@ export default function Header() {
               *7007 / +995 (32) 2 60 30 60
             </span>
           </div>
-          <div></div>
         </div>
       </div>
 
@@ -100,12 +95,6 @@ export default function Header() {
                 showModal={showModal}
                 handleClose={handleClose}
                 onLoggedIn={handleLogin}
-              />
-
-              <Success
-                title="წარმატებული ავტორიზაცია"
-                showModal={showSuccessModal}
-                handleClose={() => setShowSuccessModal(false)}
               />
             </div>
           </div>

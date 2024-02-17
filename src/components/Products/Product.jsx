@@ -18,7 +18,6 @@ const Product = ({ product }) => {
       <div>
         <Button
           children="დამატება"
-          onClick={handleAddToCart}
           className="bg-orange text-black rounded-[5px] text-[13px] "
           icon={<CartIcon width="20px" height="20px" />}
         />

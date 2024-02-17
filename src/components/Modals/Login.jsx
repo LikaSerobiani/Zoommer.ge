@@ -9,28 +9,47 @@ import Input from "../Input/Index";
 import Button from "../Button/Index";
 import Registration from "./Registration";
 import { login } from "../../services/services";
+import Success from "./Success";
+import Error from "./Error";
 
 const Login = ({ showModal, handleClose, onLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleLogin = async () => {
     try {
-      const response = login({
+      setErrors({});
+
+      if (!email || !password) {
+        setErrors({ message: "გთხოვთ შეავსოთ ყველა ველი" });
+        return;
+      }
+
+      const response = await login({
         email: email,
         password: password,
       });
 
-      const { access_token, refresh_token } = response;
+      const { access_token } = response.data;
 
       localStorage.setItem("accessToken", access_token);
       onLoggedIn(true);
-      handleClose(true);
+      handleClose();
       setEmail("");
       setPassword("");
+
+      if (response.status === 201) {
+        setShowSuccessModal(true);
+      } else {
+        setShowErrorModal(true);
+      }
     } catch (error) {
-      console.error("Login Error:", error);
+      setShowErrorModal(true);
+      handleClose();
     }
   };
   const handleShowRegistrationModal = () => {
@@ -46,7 +65,9 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
       <Modal isModalOpen={showModal} onClose={handleClose}>
         <div className="flex justify-center flex-col gap-4">
           <h2 className="text-center text-2xl font-bold">ავტორიზაცია</h2>
-
+          {errors.message && (
+            <div className="text-red-500 text-sm">{errors.message}</div>
+          )}
           <div className="flex gap-4 flex-col items-center">
             <Input
               type="email"
@@ -55,6 +76,7 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
               value={email}
               onChange={(e) => setEmail(e)}
             />
+
             <Input
               type="password"
               placeholder="პაროლი"
@@ -71,7 +93,6 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
               არ ხარ დარეგისტრირებული?
             </span>
           </div>
-
           <div className="flex justify-center">
             <Button
               onClick={handleLogin}
@@ -84,6 +105,16 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
       <Registration
         showModal={showRegistrationModal}
         handleClose={handleCloseRegistrationModal}
+      />
+      <Success
+        title="წარმატებული ავტორიზაცია"
+        showModal={showSuccessModal}
+        handleClose={() => setShowSuccessModal(false)}
+      />
+      <Error
+        title="მომხმარებელი ვერ მოიძებნა"
+        showModal={showErrorModal}
+        handleClose={() => setShowErrorModal(false)}
       />
     </>
   );
