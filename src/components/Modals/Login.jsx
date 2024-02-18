@@ -35,7 +35,7 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
       });
 
       const { access_token } = response.data;
-
+      localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("accessToken", access_token);
       onLoggedIn(true);
       handleClose();

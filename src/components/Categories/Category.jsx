@@ -2,10 +2,19 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-export default function Category({ category }) {
+export default function Category({ category, onSelectCategory, isSelected }) {
+  const handleClick = () => {
+    onSelectCategory(category);
+  };
+
   return (
-    <div className="cursor-pointer font-bold text-secondary">
-      <h2>{category.name}</h2>
+    <div
+      className={`cursor-pointer font-bold text-secondary ${
+        isSelected ? "bg-black text-white" : ""
+      } p-2 rounded-md`}
+      onClick={handleClick}
+    >
+      {category.name}
     </div>
   );
 }

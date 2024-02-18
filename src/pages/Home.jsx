@@ -4,6 +4,7 @@ import Products from "../components/Products/Products";
 import { getProducts } from "../services/services";
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -22,10 +23,20 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  const onSelectCategory = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const filteredProducts = selectedCategory
+    ? products.filter(
+        (product) => product.category_name === selectedCategory.name
+      )
+    : products;
+
   return (
     <div className="container">
-      <Categories />
-      <Products products={products} />
+      <Categories onSelectCategory={onSelectCategory} />
+      <Products products={filteredProducts} />
     </div>
   );
 }
