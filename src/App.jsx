@@ -20,14 +20,26 @@ import Installment from "./pages/Payments/Installment";
 import ReturnItem from "./pages/Payments/ReturnItem";
 import HowToBuyOnline from "./pages/Payments/HowToBuyOnline";
 import CartPage from "./pages/Cart";
+import ProductPage from "./pages/Product";
+// import { createContext } from "react";
+
+// export const ProductsContext = createContext(null);
 
 export default function App() {
+  // const storedProducts = JSON.parse(localStorage.getItem("cartProducts")) || [];
+
+  // const [products, setProducts] = useState(storedProducts);
+  // const [productsLength, setProductsLength] = useState(products.length);
   return (
+    // <ProductsContext.Provider
+    //   value={{ products, setProducts, productsLength, setProductsLength }}
+    // >
     <Router>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/product/:cardId" element={<ProductPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/about-us" element={<AboutUs />} />
@@ -44,5 +56,6 @@ export default function App() {
       </Routes>
       <Footer />
     </Router>
+    // </ProductsContext.Provider>
   );
 }

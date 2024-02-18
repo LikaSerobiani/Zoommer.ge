@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Search from "./Search";
 import Button from "../../components/Button/Index";
+// import { ProductsContext } from "../../App";
+
 // Icons
 import Logo from "../../assets/Images/main-logo.svg";
 import CartIcon from "../../components/Icons/CartIcon";
@@ -29,6 +31,7 @@ export default function Header() {
   const handleProfilePage = () => {
     navigate("/profile");
   };
+  // const { productsLength } = useContext(ProductsContext);
 
   return (
     <header>
@@ -75,6 +78,11 @@ export default function Header() {
                   icon={<CartIcon width="24px" height="24px" />}
                   className="bg-white text-black"
                 />
+                {/* {productsLength > 0 && (
+                  <span className="bg-secondary rounded-full text-white absolute right-[-24px] top-[-10px] w-6 h-6 text-center">
+                    {productsLength}
+                  </span>
+                )} */}
               </Link>
               {isLoggedIn ? (
                 <Button
