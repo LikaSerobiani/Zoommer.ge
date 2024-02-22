@@ -1,4 +1,3 @@
-// Categories.js
 import React, { useState, useEffect } from "react";
 import Category from "./Category";
 import { getCategories } from "../../services/services";

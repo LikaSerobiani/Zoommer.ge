@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../services/services";
 import Button from "../components/Button/Index";
-// import { ProductsContext } from "../App";
 
 export default function ProductPage() {
   const { cardId } = useParams();
   const [cardData, setCardData] = useState(null);
   const [error, setError] = useState();
-  // const { products, setProducts, setProductsLength } =
-  //   useContext(ProductsContext);
+
   const fetchData = async (cardId) => {
     try {
       const response = await getProduct(cardId);
@@ -23,16 +21,6 @@ export default function ProductPage() {
     fetchData(cardId);
   }, [cardId]);
 
-  // const addProductsToCart = (product) => {
-  //   const updatedProducts = [
-  //     ...products,
-  //     { ...product, quantity: product.quantity || 1, cartProductId: uuidv4() },
-  //   ];
-  //   localStorage.setItem("cartProducts", JSON.stringify(updatedProducts));
-  //   setProducts(updatedProducts);
-
-  //   setProductsLength((prevCount) => prevCount + 1);
-  // };
   return (
     <div>
       {cardData ? (
@@ -54,10 +42,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div>
-            <Button
-              children="დამატება"
-              // onClick={() => addProductsToCart(cardData)}
-            />
+            <Button children="დამატება" />
           </div>
         </div>
       ) : (

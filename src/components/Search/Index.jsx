@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import SearchIcon from "../../components/Icons/SearchIcon";
+import SearchIcon from "../Icons/SearchIcon";
 
 export default function Search() {
   return (

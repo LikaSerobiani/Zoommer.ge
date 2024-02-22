@@ -3,20 +3,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Search from "./Search";
-import Button from "../../components/Button/Index";
-// import { ProductsContext } from "../../App";
+import Search from "../components/Search/Index";
+import Button from "../components/Button/Index";
 
 // Icons
-import Logo from "../../assets/Images/main-logo.svg";
-import CartIcon from "../../components/Icons/CartIcon";
-import UserIcon from "../../components/Icons/UserIcon";
-import DotsIcon from "../../components/Icons/DotsIcon";
-import Login from "../../components/Modals/Login";
-import PhoneIcon from "../../components/Icons/PhoneIcon";
+import Logo from "../assets/Images/main-logo.svg";
+import CartIcon from "../components/Icons/CartIcon";
+import UserIcon from "../components/Icons/UserIcon";
+import DotsIcon from "../components/Icons/DotsIcon";
+import Login from "../components/Modals/Login";
+import PhoneIcon from "../components/Icons/PhoneIcon";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
   const navigate = useNavigate();
+  const { cartProducts } = useCart();
 
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -31,7 +32,6 @@ export default function Header() {
   const handleProfilePage = () => {
     navigate("/profile");
   };
-  // const { productsLength } = useContext(ProductsContext);
 
   return (
     <header>
@@ -72,19 +72,19 @@ export default function Header() {
             <Search />
             {/* Buttons */}
             <div className="flex gap-[18px]">
-              <Link to="/cart">
+              <Link to="/cart" className="relative">
                 <Button
                   children="კალათა"
                   icon={<CartIcon width="24px" height="24px" />}
                   className="bg-white text-black"
                 />
-                {/* {productsLength > 0 && (
-                  <span className="bg-secondary rounded-full text-white absolute right-[-24px] top-[-10px] w-6 h-6 text-center">
-                    {productsLength}
-                  </span>
-                )} */}
+
+                <span className="bg-primary text-white rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center z-10">
+                  {cartProducts.length}
+                </span>
               </Link>
-              {isLoggedIn ? (
+
+              {isLoggedIn || localStorage.getItem("isLoggedIn") ? (
                 <Button
                   children="პროფილი"
                   icon={<UserIcon />}

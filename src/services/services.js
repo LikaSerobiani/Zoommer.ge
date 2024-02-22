@@ -13,6 +13,7 @@ export const registration = (data) => {
 export const getProducts = (data) => {
   return api.get(`${baseURL}/product`, { ...data });
 };
+
 export const getProduct = (cardId, data) => {
   return api.get(`${baseURL}/product/${cardId}`, { ...data });
 };
@@ -26,9 +27,5 @@ export const getCartProducts = (data) => {
 };
 
 export const addCartProducts = (data) => {
-  return api.get(`${baseURL}/cart`, { ...data });
-};
-
-export const removeCartProducts = (productId, data) => {
-  return api.get(`${baseURL}/cart/${productId}`, { ...data });
+  return api.post(`${baseURL}/cart`, { ...data });
 };
