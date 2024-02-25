@@ -29,3 +29,7 @@ export const getCartProducts = (data) => {
 export const addCartProducts = (data) => {
   return api.post(`${baseURL}/cart`, { ...data });
 };
+
+export const removeCartProducts = (id) => {
+  return api.delete(`${baseURL}/cart/${id}`);
+};
