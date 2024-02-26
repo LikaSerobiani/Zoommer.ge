@@ -84,7 +84,7 @@ export default function Header() {
                 </span>
               </Link>
 
-              {isLoggedIn || localStorage.getItem("isLoggedIn") ? (
+              {localStorage.getItem("accessToken") ? (
                 <Button
                   children="პროფილი"
                   icon={<UserIcon />}

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getCartProducts } from "../services/services";
 import Button from "../components/Button/Index";
 import EmptyCartIcon from "../components/Icons/EmptyCartIcon";
+import TrashIcon from "../components/Icons/TrashIcon";
+import { getCartProducts, removeCartProducts } from "../services/services";
+import { useCart } from "../context/CartContext";
 
 export default function Cart() {
   const [data, setData] = useState([]);
+  const { removeFromCart } = useCart();
 
   const fetchCart = async () => {
     try {
@@ -51,6 +54,15 @@ export default function Cart() {
     return data.reduce((total, product) => total + product.quantity, 0);
   };
 
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      await removeCartProducts(productId);
+      setData((prevData) => prevData.filter((item) => item.id !== productId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="container pt-[50px]">
       <div className="pb-[20px] border-b-2">
@@ -70,8 +82,8 @@ export default function Cart() {
                   src={product?.cartProduct.image}
                   alt={product?.cartProduct.title}
                 />
+                <h1>{product?.cartProduct.title}</h1>
                 <div>
-                  <h1>{product?.cartProduct.title}</h1>
                   <div className="bg-primary text-white flex justify-around items-center text-[12px] font-bold w-[120px] h-[30px] rounded-[30px]">
                     <button
                       onClick={() => decreaseQuantity(product.cartProduct.id)}
@@ -85,6 +97,9 @@ export default function Cart() {
                       +
                     </button>
                   </div>
+                  <button onClick={() => handleRemoveFromCart(product.id)}>
+                    <TrashIcon />
+                  </button>
                 </div>
               </div>
             ))
