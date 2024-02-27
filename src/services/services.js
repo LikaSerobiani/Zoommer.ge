@@ -33,3 +33,11 @@ export const addCartProducts = (data) => {
 export const removeCartProducts = (id) => {
   return api.delete(`${baseURL}/cart/${id}`);
 };
+
+export const getUserDetails = () => {
+  return api.get(`${baseURL}/user/current-user`);
+};
+
+export const updateUserDetails = (userData) => {
+  return api.put(`${baseURL}/user`, userData);
+};

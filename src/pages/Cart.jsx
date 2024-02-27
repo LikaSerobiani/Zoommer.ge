@@ -13,7 +13,7 @@ export default function Cart() {
     try {
       const response = await getCartProducts();
       const { data } = response;
-      setData(data.map((item) => ({ ...item, quantity: 1 })));
+      setData(data.map((item) => ({ ...item, quantity: item.count })));
     } catch (error) {
       console.error(error);
     }
@@ -30,33 +30,37 @@ export default function Cart() {
     );
   };
 
-  const increaseQuantity = (productId) => {
-    setData((prevData) =>
-      prevData.map((item) =>
+  const increaseQuantity = async (productId) => {
+    try {
+      const updatedData = data.map((item) =>
         item.cartProduct.id === productId
           ? { ...item, quantity: item.quantity + 1 }
           : item
-      )
-    );
+      );
+      setData(updatedData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const decreaseQuantity = (productId) => {
-    setData((prevData) =>
-      prevData.map((item) =>
+  const decreaseQuantity = async (productId) => {
+    try {
+      const updatedData = data.map((item) =>
         item.cartProduct.id === productId
           ? { ...item, quantity: Math.max(1, item.quantity - 1) }
           : item
-      )
-    );
+      );
+      setData(updatedData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const calculateTotalQuantity = () => {
-    return data.reduce((total, product) => total + product.quantity, 0);
-  };
-
+  // Remove product from cart
   const handleRemoveFromCart = async (productId) => {
     try {
       await removeCartProducts(productId);
+      removeFromCart(productId);
       setData((prevData) => prevData.filter((item) => item.id !== productId));
     } catch (error) {
       console.error(error);
@@ -67,7 +71,8 @@ export default function Cart() {
     <div className="container pt-[50px]">
       <div className="pb-[20px] border-b-2">
         <p className="font-bold text-[28px] leading-7">
-          შენს კალათაში {calculateTotalQuantity()} ნივთია
+          შენს კალათაში {data.reduce((total, item) => total + item.quantity, 0)}{" "}
+          ნივთია
         </p>
       </div>
       <div className="flex justify-between mt-[30px]">
@@ -83,7 +88,7 @@ export default function Cart() {
                   alt={product?.cartProduct.title}
                 />
                 <h1>{product?.cartProduct.title}</h1>
-                <div>
+                <div className="flex gap-3 items-center">
                   <div className="bg-primary text-white flex justify-around items-center text-[12px] font-bold w-[120px] h-[30px] rounded-[30px]">
                     <button
                       onClick={() => decreaseQuantity(product.cartProduct.id)}
@@ -112,7 +117,7 @@ export default function Cart() {
             <h2 className="text-black font-bold text-[20px]">
               გადასახდელი თანხა
             </h2>
-            <span className="font-bold text-[20px]">
+            <span className="font-bold text-[20px] text-primary">
               {calculateTotalPrice().toFixed(2)}₾
             </span>
           </div>
