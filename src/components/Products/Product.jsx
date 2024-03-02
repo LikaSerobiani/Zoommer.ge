@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../Button/Index";
-import CartIcon from "../Icons/CartIcon";
+import Button from "../button/Index";
+import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
 import { addCartProducts } from "../../services/services";
 import { useCart } from "../../context/CartContext";
@@ -27,28 +27,31 @@ const Product = ({ product }) => {
   };
 
   return (
-    <div>
-      <div
-        className="flex gap-[8px] flex-col h-[303px] bg-white justify-center cursor-pointer"
-        onClick={() => handleClick(product.id)}
-      >
-        <div>
-          <img src={product.image} className="h-[160px]" />
-        </div>
+    <div className="flex gap-[8px] flex-col h-[303px] bg-white justify-center cursor-pointer">
+      <div onClick={() => handleClick(product.id)}>
+        <img src={product.image} className="h-[160px]" alt={product.title} />
         <div className="flex flex-col justify-start">
-          <p className="font-bold text-[17px] w-[150px]">₾{product.price}</p>
+          <p className="font-bold text-[17px]">
+            {product.salePrice ? (
+              <div className="flex gap-2 items-center">
+                {product.salePrice}₾
+                <span className="line-through text-sm text-secondary">
+                  {product.price} ₾
+                </span>
+              </div>
+            ) : (
+              `${product.price}₾`
+            )}
+          </p>
           <h3>{product.title}</h3>
-          <p className="font-medium">{product.description}</p>
         </div>
       </div>
-      <div>
-        <Button
-          children="დამატება"
-          className="bg-orange text-black rounded-[5px] text-[13px] "
-          icon={<CartIcon width="20px" height="20px" />}
-          onClick={(e) => handleAddToCart(e)}
-        />
-      </div>
+      <Button
+        children="დამატება"
+        className="bg-orange text-black rounded-[5px] text-[13px] "
+        icon={<CartIcon width="20px" height="20px" />}
+        onClick={handleAddToCart}
+      />
     </div>
   );
 };

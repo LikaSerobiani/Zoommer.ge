@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Modal from "./Modal";
-import Button from "../Button/Index";
-import SuccessIcon from "../Icons/SuccessIcon";
+import Button from "../button/Index";
+import SuccessIcon from "../icons/SuccessIcon";
 
 export default function Success({ title, showModal, handleClose }) {
   return (

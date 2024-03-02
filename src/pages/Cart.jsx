@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Button from "../components/Button/Index";
-import EmptyCartIcon from "../components/Icons/EmptyCartIcon";
-import TrashIcon from "../components/Icons/TrashIcon";
+import Button from "../components/button/Index";
+import EmptyCartIcon from "../components/icons/EmptyCartIcon";
+import TrashIcon from "../components/icons/TrashIcon";
 import { getCartProducts, removeCartProducts } from "../services/services";
 import { useCart } from "../context/CartContext";
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { updateUserDetails, getUserDetails } from "../services/services";
-import Button from "../components/Button/Index";
+import Button from "../components/button/Index";
 import { useNavigate } from "react-router-dom";
-import ProfileIcon from "../components/Icons/ProfileIcon";
+import ProfileIcon from "../components/icons/ProfileIcon";
 const UpdateProfile = () => {
   const [userData, setUserData] = useState({
     first_name: "",

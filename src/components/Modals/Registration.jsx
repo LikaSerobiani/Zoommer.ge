@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import Input from "../Input/Index";
-import Button from "../Button/Index";
+import Input from "../input/Index";
+import Button from "../button/Index";
 import { registration } from "../../services/services";
 import Success from "./Success";
 import Error from "./Error";

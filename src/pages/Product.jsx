@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../services/services";
-import Button from "../components/Button/Index";
+import Button from "../components/button/Index";
 
 export default function ProductPage() {
   const { cardId } = useParams();
@@ -17,6 +17,7 @@ export default function ProductPage() {
       setError("An error occurred while fetching data.");
     }
   };
+
   useEffect(() => {
     fetchData(cardId);
   }, [cardId]);

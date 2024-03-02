@@ -2,12 +2,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // icons
-import FacebookIcon from "../components/Icons/FacebookIcon";
-import YoutubeIcon from "../components/Icons/YoutubeIcon";
-import InstagramIcon from "../components/Icons/InstagramIcon";
-import TikTokIcon from "../components/Icons/TikTokIcon";
-import EmailIcon from "../components/Icons/EmailIcon";
-import PhoneIcon from "../components/Icons/PhoneIcon";
+import FacebookIcon from "../components/icons/FacebookIcon";
+import YoutubeIcon from "../components/icons/YoutubeIcon";
+import InstagramIcon from "../components/icons/InstagramIcon";
+import TikTokIcon from "../components/icons/TikTokIcon";
+import EmailIcon from "../components/icons/EmailIcon";
+import PhoneIcon from "../components/icons/PhoneIcon";
 
 export default function Footer() {
   return (

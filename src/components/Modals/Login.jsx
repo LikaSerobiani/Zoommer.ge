@@ -5,8 +5,8 @@
 
 import React, { useState } from "react";
 import Modal from "./Modal";
-import Input from "../Input/Index";
-import Button from "../Button/Index";
+import Input from "../input/Index";
+import Button from "../button/Index";
 import Registration from "./Registration";
 import { login } from "../../services/services";
 import Success from "./Success";

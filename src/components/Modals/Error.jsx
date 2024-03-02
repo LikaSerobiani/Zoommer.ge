@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Modal from "./Modal";
-import Button from "../Button/Index";
-import ErrorIcon from "../Icons/ErrorIcon";
+import Button from "../button/Index";
+import ErrorIcon from "../icons/ErrorIcon";
 
 export default function Error({ title, showModal, handleClose }) {
   return (

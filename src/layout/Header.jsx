@@ -3,22 +3,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Search from "../components/Search/Index";
-import Button from "../components/Button/Index";
+import Search from "../components/search/Index";
+import Button from "../components/button/Index";
 
-// Icons
+// icons
 import Logo from "../assets/Images/main-logo.svg";
-import CartIcon from "../components/Icons/CartIcon";
-import UserIcon from "../components/Icons/UserIcon";
-import DotsIcon from "../components/Icons/DotsIcon";
-import Login from "../components/Modals/Login";
-import PhoneIcon from "../components/Icons/PhoneIcon";
-import { useCart } from "../context/CartContext";
+import CartIcon from "../components/icons/CartIcon";
+import UserIcon from "../components/icons/UserIcon";
+import DotsIcon from "../components/icons/DotsIcon";
+import Login from "../components/modals/Login";
+import PhoneIcon from "../components/icons/PhoneIcon";
+// import { useCart } from "../context/CartContext";
 
 export default function Header() {
   const navigate = useNavigate();
-  const { cartProducts } = useCart();
-
+  // const { cartCount } = useCart();
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
 
@@ -79,9 +78,9 @@ export default function Header() {
                   className="bg-white text-black"
                 />
 
-                <span className="bg-primary text-white rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center z-10">
-                  {cartProducts.length}
-                </span>
+                {/* <span className="bg-primary text-white rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center z-10">
+                  {cartCount}
+                </span> */}
               </Link>
 
               {localStorage.getItem("accessToken") ? (

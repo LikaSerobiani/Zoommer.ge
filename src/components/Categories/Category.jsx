@@ -2,19 +2,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-export default function Category({ category, onSelectCategory, isSelected }) {
-  const handleClick = () => {
-    onSelectCategory(category);
-  };
-
+export default function Category({ category }) {
   return (
-    <div
-      className={`cursor-pointer font-bold text-secondary ${
-        isSelected ? "bg-black text-white" : ""
-      } p-2 rounded-md`}
-      onClick={handleClick}
-    >
-      {category.name}
+    <div className="cursor-pointer px-3 py-3 hover:bg-white border-b border-white">
+      <span className="font-black text-black text-[14px]">{category.name}</span>
     </div>
   );
 }

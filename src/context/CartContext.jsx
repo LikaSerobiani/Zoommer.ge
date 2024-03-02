@@ -14,9 +14,23 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId) => {
-    setCartProducts((prevProducts) =>
-      prevProducts.filter((product) => product.id !== productId)
+    const isItemInCart = cartProducts.find(
+      (product) => product.id === productId
     );
+
+    if (isItemInCart.count === 1) {
+      setCartProducts(
+        cartProducts.filter((product) => product.id !== productId)
+      );
+    } else {
+      setCartProducts(
+        cartProducts.map((product) =>
+          product.id === productId
+            ? { ...product, count: product.count - 1 }
+            : product
+        )
+      );
+    }
   };
 
   return (
