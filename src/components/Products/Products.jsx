@@ -27,8 +27,8 @@ const Products = () => {
     <div>
       <AllProductsSlider products={products} />
       <PromotionsSlider products={products} />
-      <LaptopsSlider products={products} />
       <SmartphonesSlider products={products} />
+      <LaptopsSlider products={products} />
     </div>
   );
 };

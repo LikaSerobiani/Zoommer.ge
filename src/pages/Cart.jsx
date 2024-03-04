@@ -83,11 +83,14 @@ export default function Cart() {
                 key={product?.cartProduct.id}
                 className="bg-light-grey h-[84px] p-[12px] rounded-[12px] flex flex-row justify-between w-[700px]"
               >
-                <img
-                  src={product?.cartProduct.image}
-                  alt={product?.cartProduct.title}
-                />
-                <h1>{product?.cartProduct.title}</h1>
+                <div className="flex gap-2">
+                  <img
+                    src={product?.cartProduct.image}
+                    alt={product?.cartProduct.title}
+                    className="w-[60px] h-[60px] rounded-[12px]"
+                  />
+                  <h1>{product?.cartProduct.title}</h1>
+                </div>
                 <div className="flex gap-3 items-center">
                   <div className="bg-primary text-white flex justify-around items-center text-[12px] font-bold w-[120px] h-[30px] rounded-[30px]">
                     <button

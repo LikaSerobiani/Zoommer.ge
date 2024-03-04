@@ -6,7 +6,7 @@ import MainSlider from "../components/slider/Main";
 export default function Home() {
   return (
     <div className="container">
-      <div className="flex items-center gap-[60px] my-12">
+      <div className="flex items-center gap-[65px] my-12">
         <Categories />
         <MainSlider />
       </div>

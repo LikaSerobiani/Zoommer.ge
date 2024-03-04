@@ -29,7 +29,11 @@ const Product = ({ product }) => {
   return (
     <div className="flex gap-[8px] flex-col h-[303px] bg-white justify-center cursor-pointer">
       <div onClick={() => handleClick(product.id)}>
-        <img src={product.image} className="h-[160px]" alt={product.title} />
+        <img
+          src={product?.image}
+          className="w-full h-40 object-contain"
+          alt={product.title}
+        />
         <div className="flex flex-col justify-start">
           <p className="font-bold text-[17px]">
             {product.salePrice ? (

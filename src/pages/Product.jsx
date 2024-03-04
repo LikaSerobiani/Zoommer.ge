@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getProduct } from "../services/services";
+import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
+import CartIcon from "../components/icons/CartIcon";
+import { useCart } from "../context/CartContext";
+import { addCartProducts } from "../services/services";
 
 export default function ProductPage() {
   const { cardId } = useParams();
   const [cardData, setCardData] = useState(null);
   const [error, setError] = useState();
+  const { addToCart } = useCart();
 
   const fetchData = async (cardId) => {
     try {
@@ -22,33 +27,87 @@ export default function ProductPage() {
     fetchData(cardId);
   }, [cardId]);
 
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+
+    try {
+      addCartProducts({ product_id: cardData.id });
+      addToCart(cardData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const breadcrumbs = [
+    { label: "მთავარი", path: "/" },
+    {
+      label: cardData?.category_name
+        ? cardData.category_name
+        : "product category",
+      path: `/category/${cardData?.category_id}`,
+    },
+    { label: cardData?.title || "Product title" },
+  ];
+
   return (
-    <div>
-      {cardData ? (
-        <div className="container-xl m-auto flex w-[900px] h-[440px] justify-around items-center cursor-pointer rounded-2xl bg-white relative max-[768px]:w-[700px] max-[480px]:h-[600px] max-[480px]:w-[400px] max-[480px]:flex max-[480px]:flex-col">
-          {/* Card image */}
-          <div>
-            <img
-              src={cardData.image}
-              alt={cardData.title}
-              className="h-auto bg-gray-300 w-[250px] max-[480px]:w-[130px]"
-            />
-          </div>
-          {/* Information */}
-          <div className="w-[400px] max-[480px]:w-[300px]  ">
-            <div className="info flex gap-3 flex-col max-[480px]:flex max-[480px]:gap-0">
-              <h2 className="text-xl font-bold">{cardData.title}</h2>
-              <p className="text-success font-bold">Price: ${cardData.price}</p>
-              <p className="text-gray-500">{cardData.description}</p>
+    <div className="my-[30px]">
+      <div className="container">
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-col">
+            {/* breadcrumb menu */}
+            <div className="bread-crumb">
+              <nav className="border-b-2 border-light-grey pb-[20px] mb-[20px] w-[700px]">
+                <ul className="flex flex-row gap-5">
+                  {breadcrumbs.map((breadcrumb, index) => (
+                    <Breadcrumb
+                      key={index}
+                      label={breadcrumb.label}
+                      path={breadcrumb.path}
+                      isLast={index === breadcrumbs.length - 1}
+                    />
+                  ))}
+                </ul>
+              </nav>
+            </div>
+            {/* information */}
+            <div className="flex gap-x-10">
+              <div>
+                <p className="text-[14px] leading-4 font-bold text-black">
+                  {cardData ? cardData.title : ""}
+                </p>
+                <img
+                  src={cardData?.image}
+                  alt={cardData?.title || "Product"}
+                  className="w-full h-56 object-contain"
+                />
+              </div>
+              <div>
+                <p className="text-gray-500">
+                  {cardData ? cardData.description : ""}
+                </p>
+              </div>
             </div>
           </div>
-          <div>
-            <Button children="დამატება" />
+          {/* price section */}
+          <div className="p-[20px] w-[450px] h-[150px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
+            {/* Buttons */}
+            <div className="flex flex-col gap-[20px]">
+              <Link to="/payment">
+                <Button
+                  children="ყიდვა"
+                  className="bg-primary text-white rounded-[12px] text-[13px] w-[411px]"
+                />
+              </Link>
+              <Button
+                children="დამატება"
+                className="bg-orange text-black rounded-[12px] text-[13px] w-[411px]"
+                icon={<CartIcon width="20px" height="20px" />}
+                onClick={handleAddToCart}
+              />
+            </div>
           </div>
         </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+      </div>
     </div>
   );
 }
