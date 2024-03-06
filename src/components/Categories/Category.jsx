@@ -4,7 +4,8 @@ import React from "react";
 
 export default function Category({ category }) {
   return (
-    <div className="cursor-pointer px-3 py-3 hover:bg-white border-b border-white">
+    <div className="cursor-pointer px-3 py-3 hover:bg-white border-b border-white flex items-center gap-2">
+      <img src={category.image} />
       <span className="font-black text-black text-[14px]">{category.name}</span>
     </div>
   );

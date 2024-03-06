@@ -47,7 +47,7 @@ const Product = ({ product }) => {
               `${product.price}₾`
             )}
           </p>
-          <h3>{product.title}</h3>
+          <h3 className="line-clamp-1 w-[130px]">{product.title}</h3>
         </div>
       </div>
       <Button
