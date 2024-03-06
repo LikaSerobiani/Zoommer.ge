@@ -92,9 +92,8 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
               არ ხარ დარეგისტრირებული?
             </span>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center" onClick={handleLogin}>
             <Button
-              onClick={handleLogin}
               children="შესვლა"
               className="bg-primary text-white w-full"
             />

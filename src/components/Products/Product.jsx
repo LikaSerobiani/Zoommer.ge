@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../button/Index";
 import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
-import { addCartProducts } from "../../services/services";
 import { useCart } from "../../context/CartContext";
 
 const Product = ({ product }) => {
@@ -11,19 +10,6 @@ const Product = ({ product }) => {
 
   const handleClick = (productId) => {
     nav(`/product/${productId}`);
-  };
-
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-
-    const { id } = product;
-
-    try {
-      addCartProducts({ product_id: id });
-      addToCart(product);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -54,7 +40,7 @@ const Product = ({ product }) => {
         children="დამატება"
         className="bg-orange text-black rounded-[5px] text-[13px] "
         icon={<CartIcon width="20px" height="20px" />}
-        onClick={handleAddToCart}
+        onClick={() => addToCart(product)}
       />
     </div>
   );

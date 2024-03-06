@@ -1,40 +1,97 @@
-import React, { createContext, useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+// CartContext.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
+import {
+  getCartProducts,
+  addCartProducts,
+  removeCartProducts,
+} from "../services/services";
+import { toast } from "react-toastify";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const addToCart = (product) => {
-    const isProductInCart = cartProducts.some((p) => p.id === product.id);
+  const fetchCartItems = () => {
+    setLoading(true);
 
-    if (!isProductInCart) {
-      setCartProducts((prevProducts) => [...prevProducts, product]);
-    }
+    getCartProducts()
+      .then((response) => {
+        setCartProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cart items:", error);
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
-  const removeFromCart = (productId) => {
-    const isItemInCart = cartProducts.find(
-      (product) => product.id === productId
-    );
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
 
-    if (isItemInCart.count === 1) {
-      setCartProducts(
-        cartProducts.filter((product) => product.id !== productId)
-      );
-    } else {
-      setCartProducts(
-        cartProducts.map((product) =>
-          product.id === productId
-            ? { ...product, count: product.count - 1 }
-            : product
-        )
-      );
-    }
+  const addToCart = (product) => {
+    setLoading(true);
+
+    addCartProducts({ product_id: product.id })
+      .then(() => {
+        toast.success("პროდუქტი დაემატა კალათაში", {
+          position: "top-right",
+        });
+        fetchCartItems();
+      })
+      .catch((error) => {
+        setError(error);
+        toast.error("მოხდა შეცდომა", {
+          position: "top-right",
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const removeFromCart = (productId, removeAll) => {
+    setLoading(true);
+
+    removeCartProducts(productId, removeAll)
+      .then(() => {
+        setCartProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
+        toast.success("პროდუქტი წარმატებით წაიშალა", {
+          position: "top-right",
+        });
+      })
+      .catch((error) => {
+        toast.error("მოხდა შეცდომა", {
+          position: "top-right",
+        });
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
-    <CartContext.Provider value={{ cartProducts, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartProducts,
+        setCartProducts,
+        fetchCartItems,
+        addToCart,
+        removeFromCart,
+        loading,
+        error,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
