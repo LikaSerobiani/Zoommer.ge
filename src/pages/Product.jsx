@@ -5,48 +5,36 @@ import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
 import { useCart } from "../context/CartContext";
-import { addCartProducts } from "../services/services";
 
 export default function ProductPage() {
-  const { cardId } = useParams();
-  const [cardData, setCardData] = useState(null);
-  const [error, setError] = useState();
+  const { productId } = useParams();
+  const [productData, setProductData] = useState(null);
+  const [error, setError] = useState(null);
   const { addToCart } = useCart();
 
-  const fetchData = async (cardId) => {
-    try {
-      const response = await getProduct(cardId);
-      setCardData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("An error occurred while fetching data.");
-    }
-  };
-
   useEffect(() => {
-    fetchData(cardId);
-  }, [cardId]);
+    const fetchData = async () => {
+      try {
+        const response = await getProduct(productId);
+        setProductData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("An error occurred while fetching data.");
+      }
+    };
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-
-    try {
-      addCartProducts({ product_id: cardData.id });
-      addToCart(cardData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    fetchData();
+  }, [productId]);
 
   const breadcrumbs = [
     { label: "მთავარი", path: "/" },
     {
-      label: cardData?.category_name
-        ? cardData.category_name
+      label: productData?.category_name
+        ? productData.category_name
         : "product category",
-      path: `/category/${cardData?.category_id}`,
+      path: `/category/${productData?.category_id}`,
     },
-    { label: cardData?.title || "Product title" },
+    { label: productData?.title || "Product title" },
   ];
 
   return (
@@ -73,17 +61,17 @@ export default function ProductPage() {
             <div className="flex gap-x-10">
               <div>
                 <p className="text-[14px] leading-4 font-bold text-black">
-                  {cardData ? cardData.title : ""}
+                  {productData ? productData.title : ""}
                 </p>
                 <img
-                  src={cardData?.image}
-                  alt={cardData?.title || "Product"}
+                  src={productData?.image}
+                  alt={productData?.title || "Product"}
                   className="w-full h-56 object-contain"
                 />
               </div>
               <div>
                 <p className="text-gray-500">
-                  {cardData ? cardData.description : ""}
+                  {productData ? productData.description : ""}
                 </p>
               </div>
             </div>
@@ -102,7 +90,7 @@ export default function ProductPage() {
                 children="დამატება"
                 className="bg-orange text-black rounded-[12px] text-[13px] w-[411px]"
                 icon={<CartIcon width="20px" height="20px" />}
-                onClick={handleAddToCart}
+                onClick={() => addToCart(productData)}
               />
             </div>
           </div>

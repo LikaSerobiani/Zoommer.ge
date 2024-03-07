@@ -8,7 +8,11 @@ import { addCartProducts, removeCartProducts } from "../services/services";
 export default function Cart() {
   const { cartProducts, setCartProducts, removeFromCart } = useCart();
 
-  const navigate = useNavigate();
+  const nav = useNavigate();
+
+  const handleNavigate = () => {
+    nav(`/payment`);
+  };
 
   const calculateTotalPrice = () => {
     return cartProducts.reduce(
@@ -124,6 +128,7 @@ export default function Cart() {
             <Button
               children="ყიდვა"
               className="bg-primary text-white w-[411px]"
+              onClick={handleNavigate}
             />
           </div>
         </div>

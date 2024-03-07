@@ -13,6 +13,7 @@ import UserIcon from "../components/icons/UserIcon";
 import DotsIcon from "../components/icons/DotsIcon";
 import Login from "../components/modals/Login";
 import PhoneIcon from "../components/icons/PhoneIcon";
+import useScrollDirection from "../hooks/UseScrollDirection";
 // import { useCart } from "../context/CartContext";
 
 export default function Header() {
@@ -20,6 +21,7 @@ export default function Header() {
   // const { cartCount } = useCart();
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
+  const scrollDirection = useScrollDirection();
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -33,7 +35,11 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header
+      className={`sticky ${
+        scrollDirection === "down" ? "-top-24" : "top-0"
+      } transition-all duration-500 z-50`}
+    >
       <div className="bg-primary py-3">
         <div className="container flex items-center justify-between">
           <div className="flex gap-[10px]">

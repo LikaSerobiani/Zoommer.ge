@@ -8,20 +8,20 @@ const Product = ({ product }) => {
   const { addToCart } = useCart();
   const nav = useNavigate();
 
-  const handleClick = (productId) => {
+  const handleProductClick = (productId) => {
     nav(`/product/${productId}`);
   };
 
   return (
     <div className="flex gap-[8px] flex-col h-[303px] bg-white justify-center cursor-pointer">
-      <div onClick={() => handleClick(product.id)}>
+      <div onClick={() => handleProductClick(product.id)}>
         <img
           src={product?.image}
           className="w-full h-40 object-contain"
           alt={product.title}
         />
         <div className="flex flex-col justify-start">
-          <p className="font-bold text-[17px]">
+          <div className="font-bold text-[17px]">
             {product.salePrice ? (
               <div className="flex gap-2 items-center">
                 {product.salePrice}₾
@@ -32,7 +32,8 @@ const Product = ({ product }) => {
             ) : (
               `${product.price}₾`
             )}
-          </p>
+          </div>
+
           <h3 className="line-clamp-1 w-[130px]">{product.title}</h3>
         </div>
       </div>

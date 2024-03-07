@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import PromotionsSlider from "../slider/Promotions";
 import AllProductsSlider from "../slider/AllProducts";
 import { getProducts } from "../../services/services";
-import LaptopsSlider from "../slider/Laptops";
-import SmartphonesSlider from "../slider/Smartphones";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -27,8 +25,6 @@ const Products = () => {
     <div>
       <AllProductsSlider products={products} />
       <PromotionsSlider products={products} />
-      <SmartphonesSlider products={products} />
-      <LaptopsSlider products={products} />
     </div>
   );
 };
