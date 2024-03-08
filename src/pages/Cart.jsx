@@ -3,16 +3,16 @@ import EmptyCartIcon from "../components/icons/EmptyCartIcon";
 import TrashIcon from "../components/icons/TrashIcon";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { addCartProducts, removeCartProducts } from "../services/services";
+import {
+  addCartProducts,
+  removeCartProducts,
+  purchaseProducts,
+} from "../services/services";
 
 export default function Cart() {
   const { cartProducts, setCartProducts, removeFromCart } = useCart();
 
   const nav = useNavigate();
-
-  const handleNavigate = () => {
-    nav(`/payment`);
-  };
 
   const calculateTotalPrice = () => {
     return cartProducts.reduce(
@@ -50,6 +50,19 @@ export default function Cart() {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handlePurchase = async () => {
+    try {
+      const response = await purchaseProducts({
+        totalPrice: calculateTotalPrice(),
+        totalItems: cartProducts.reduce((total, item) => total + item.count, 0),
+      });
+
+      nav("/payment");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const productItemActions = (product) => {
@@ -128,7 +141,7 @@ export default function Cart() {
             <Button
               children="ყიდვა"
               className="bg-primary text-white w-[411px]"
-              onClick={handleNavigate}
+              onClick={handlePurchase}
             />
           </div>
         </div>

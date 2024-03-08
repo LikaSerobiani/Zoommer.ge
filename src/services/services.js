@@ -11,7 +11,9 @@ export const registration = (data) => {
 };
 
 export const getProducts = (data) => {
-  return api.get(`${baseURL}/product`, { ...data });
+  return api.get(`${baseURL}/product`, {
+    ...data,
+  });
 };
 
 export const getProduct = (cardId, data) => {
@@ -40,4 +42,12 @@ export const getUserDetails = () => {
 
 export const updateUserDetails = (userData) => {
   return api.put(`${baseURL}/user`, userData);
+};
+
+export const purchaseProducts = (data) => {
+  return api.post(`${baseURL}/purchases`, { ...data });
+};
+
+export const getPurchases = (data) => {
+  return api.get(`${baseURL}/purchases`, { ...data });
 };

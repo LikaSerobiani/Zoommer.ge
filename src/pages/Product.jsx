@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getProduct } from "../services/services";
+import { getProduct, getPurchases } from "../services/services";
 import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductPage() {
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
