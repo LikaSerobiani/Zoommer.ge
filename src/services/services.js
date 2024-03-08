@@ -10,8 +10,8 @@ export const registration = (data) => {
   return api.post(`${baseURL}/auth/register`, { ...data });
 };
 
-export const getProducts = (data) => {
-  return api.get(`${baseURL}/product`, {
+export const getProducts = (data, onlySales) => {
+  return api.get(`${baseURL}/product?onlySales=${onlySales}`, {
     ...data,
   });
 };

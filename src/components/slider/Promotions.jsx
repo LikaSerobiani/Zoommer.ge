@@ -10,7 +10,6 @@ export default function PromotionsSlider({ products }) {
   if (!products) {
     return null;
   }
-  const saleProducts = products.filter((product) => product.salePrice);
 
   const sliderRef = useRef(null);
 
@@ -21,6 +20,7 @@ export default function PromotionsSlider({ products }) {
     slidesToShow: 7,
     slidesToScroll: 1,
   };
+
   const goToPrev = () => {
     if (sliderRef.current) {
       sliderRef.current.slickPrev();
@@ -49,7 +49,7 @@ export default function PromotionsSlider({ products }) {
       </div>
 
       <Slider ref={sliderRef} {...settings}>
-        {saleProducts.map((product) => (
+        {products.map((product) => (
           <Product key={product.id} product={product} />
         ))}
       </Slider>

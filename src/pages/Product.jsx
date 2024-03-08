@@ -92,7 +92,20 @@ export default function ProductPage() {
           </div>
         </div>
         {/* price section */}
-        <div className="p-[20px] w-[450px] h-[150px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
+        <div className="p-[20px] w-[450px] h-[200px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
+          <div className="font-bold text-[20px]">
+            {productData?.salePrice ? (
+              <div className="flex gap-2 items-center">
+                <span className="text-primary">{productData?.salePrice}₾</span>
+                <span className="line-through text-base">
+                  {productData?.price} ₾
+                </span>
+              </div>
+            ) : (
+              <span>{productData?.price}₾</span>
+            )}
+          </div>
+
           {/* Buttons */}
           <div className="flex flex-col gap-[20px]">
             <Button

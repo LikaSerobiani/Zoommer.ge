@@ -4,17 +4,29 @@ import AllProductsSlider from "../slider/AllProducts";
 import { getProducts } from "../../services/services";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [saleProducts, setSaleProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await getProducts();
-        if (response.data.products) {
-          setProducts(response.data.products);
+        // Fetch all products
+        const allProductsResponse = await getProducts({}, false);
+        if (allProductsResponse.data.products) {
+          setAllProducts(allProductsResponse.data.products);
         }
+
+        // Fetch only sale products
+        const saleProductsResponse = await getProducts({}, true);
+        if (saleProductsResponse.data.products) {
+          setSaleProducts(saleProductsResponse.data.products);
+        }
+
+        setLoading(false);
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     };
 
@@ -23,8 +35,15 @@ const Products = () => {
 
   return (
     <div>
-      <AllProductsSlider products={products} />
-      <PromotionsSlider products={products} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <AllProductsSlider products={allProducts} />
+
+          <PromotionsSlider products={saleProducts} />
+        </>
+      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "../components/button/Index";
 import EmptyCartIcon from "../components/icons/EmptyCartIcon";
 import TrashIcon from "../components/icons/TrashIcon";
@@ -68,9 +69,7 @@ export default function Cart() {
   const productItemActions = (product) => {
     return (
       <>
-        {" "}
         <div className="bg-primary text-white flex justify-around items-center text-[12px] font-bold w-[120px] h-[30px] rounded-[30px]">
-          {" "}
           <div className="flex gap-3 items-center">
             <div className="bg-orange-600 text-white flex justify-around items-center text-[12px] font-bold w-[100px] h-[30px] rounded-[30px]">
               <button
@@ -128,23 +127,25 @@ export default function Cart() {
             <EmptyCartIcon />
           )}
         </div>
-        <div className="p-[20px] w-[450px] h-[150px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
-          <div className="flex justify-between items-center ">
-            <h2 className="text-black font-bold text-[20px]">
-              გადასახდელი თანხა
-            </h2>
-            <span className="font-bold text-[20px] text-primary">
-              {calculateTotalPrice().toFixed(2)}₾
-            </span>
+        {cartProducts.length > 0 && (
+          <div className="p-[20px] w-[450px] h-[150px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
+            <div className="flex justify-between items-center ">
+              <h2 className="text-black font-bold text-[20px]">
+                გადასახდელი თანხა
+              </h2>
+              <span className="font-bold text-[20px] text-primary">
+                {calculateTotalPrice().toFixed(2)}₾
+              </span>
+            </div>
+            <div>
+              <Button
+                title="ყიდვა"
+                className="bg-primary text-white w-[411px]"
+                onClick={handlePurchase}
+              />
+            </div>
           </div>
-          <div>
-            <Button
-              title="ყიდვა"
-              className="bg-primary text-white w-[411px]"
-              onClick={handlePurchase}
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -22,15 +22,15 @@ const Product = ({ product }) => {
         />
         <div className="flex flex-col justify-start">
           <div className="font-bold text-[17px]">
-            {product.salePrice ? (
+            {product?.salePrice ? (
               <div className="flex gap-2 items-center">
-                {product.salePrice}₾
-                <span className="line-through text-sm text-secondary">
-                  {product.price} ₾
+                <span className="text-secondary">{product?.salePrice}₾</span>
+                <span className="line-through text-sm ">
+                  {product?.price} ₾
                 </span>
               </div>
             ) : (
-              `${product.price}₾`
+              <span>{product?.price}₾</span>
             )}
           </div>
 
