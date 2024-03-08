@@ -153,7 +153,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
           <div className="flex justify-center">
             <Button
               onClick={handleRegister}
-              children="რეგისტრაცია"
+              title="რეგისტრაცია"
               className="bg-primary text-white w-full"
             />
           </div>

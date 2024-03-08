@@ -38,7 +38,7 @@ const Product = ({ product }) => {
         </div>
       </div>
       <Button
-        children="დამატება"
+        title="დამატება"
         className="bg-orange text-black rounded-[5px] text-[13px] "
         icon={<CartIcon width="20px" height="20px" />}
         onClick={() => addToCart(product)}

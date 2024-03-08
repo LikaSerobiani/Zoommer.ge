@@ -96,7 +96,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="container pt-[50px]">
+    <div className="container">
       <div className="pb-[20px] border-b-2">
         <p className="font-bold text-[28px] leading-7">
           შენს კალათაში{" "}
@@ -139,7 +139,7 @@ export default function Cart() {
           </div>
           <div>
             <Button
-              children="ყიდვა"
+              title="ყიდვა"
               className="bg-primary text-white w-[411px]"
               onClick={handlePurchase}
             />

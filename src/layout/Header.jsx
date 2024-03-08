@@ -38,7 +38,7 @@ export default function Header() {
     <header
       className={`sticky ${
         scrollDirection === "down" ? "-top-24" : "top-0"
-      } transition-all duration-500 z-50`}
+      } transition-all duration-500 z-50 pb-[50px]`}
     >
       <div className="bg-primary py-3">
         <div className="container flex items-center justify-between">
@@ -68,7 +68,7 @@ export default function Header() {
             {/* Navigation button */}
             <Link to="/categories">
               <Button
-                children="ნავიგაცია"
+                title="ნავიგაცია"
                 icon={<DotsIcon />}
                 className="bg-primary text-white"
               />
@@ -79,7 +79,7 @@ export default function Header() {
             <div className="flex gap-[18px]">
               <Link to="/cart" className="relative">
                 <Button
-                  children="კალათა"
+                  title="კალათა"
                   icon={<CartIcon width="24px" height="24px" />}
                   className="bg-white text-black"
                 />
@@ -91,14 +91,14 @@ export default function Header() {
 
               {localStorage.getItem("accessToken") ? (
                 <Button
-                  children="პროფილი"
+                  title="პროფილი"
                   icon={<UserIcon />}
                   className="bg-white text-black"
                   onClick={handleProfilePage}
                 />
               ) : (
                 <Button
-                  children="შესვლა"
+                  title="შესვლა"
                   icon={<UserIcon />}
                   className="bg-white text-black"
                   onClick={handleShow}

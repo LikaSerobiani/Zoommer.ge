@@ -13,7 +13,7 @@ export default function Error({ title, showModal, handleClose }) {
         <h2 className="text-center text-2xl font-bold mt-4 mb-12">{title}</h2>
         <div className="flex justify-center w-100">
           <Button
-            children="კარგი"
+            title="კარგი"
             onClick={handleClose}
             className="bg-primary text-white w-full"
           />

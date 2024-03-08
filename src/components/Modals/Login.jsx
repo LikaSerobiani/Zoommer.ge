@@ -93,10 +93,7 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
             </span>
           </div>
           <div className="flex justify-center" onClick={handleLogin}>
-            <Button
-              children="შესვლა"
-              className="bg-primary text-white w-full"
-            />
+            <Button title="შესვლა" className="bg-primary text-white w-full" />
           </div>
         </div>
       </Modal>
