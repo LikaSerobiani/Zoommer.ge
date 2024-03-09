@@ -16,6 +16,10 @@ export const getProducts = (data, onlySales) => {
   });
 };
 
+export const getProductsByCategory = ({ categoryName, data }) => {
+  return api.get(`${baseURL}/product?categoryName=${categoryName}`, data);
+};
+
 export const getProduct = (cardId, data) => {
   return api.get(`${baseURL}/product/${cardId}`, { ...data });
 };

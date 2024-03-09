@@ -74,7 +74,9 @@ export default function Header() {
               />
             </Link>
             {/* Search */}
+
             <Search />
+
             {/* Buttons */}
             <div className="flex gap-[18px]">
               <Link to="/cart" className="relative">

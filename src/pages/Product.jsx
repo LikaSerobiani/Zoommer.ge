@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getProduct, purchaseProducts } from "../services/services";
+import {
+  getProduct,
+  purchaseProducts,
+  getProductsByCategory,
+} from "../services/services";
 import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
 import { useCart } from "../context/CartContext";
+import SimilarProductsSlider from "../components/slider/SimilarProducts";
 
 export default function ProductPage() {
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
+  const [similarProducts, setSimilarProducts] = useState([]);
   const nav = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getProduct(productId);
-        setProductData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setError("An error occurred while fetching data.");
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await getProduct(productId);
+      setProductData(response.data);
 
+      const similarResponse = await getProductsByCategory({
+        categoryName: response.data.category_name,
+        data: {},
+      });
+
+      const filteredSimilarProducts = similarResponse.data.products.filter(
+        (product) => product.id !== productId
+      );
+      setSimilarProducts(filteredSimilarProducts);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("An error occurred while fetching data.");
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [productId]);
 
@@ -48,7 +64,7 @@ export default function ProductPage() {
       label: productData?.category_name
         ? productData.category_name
         : "product category",
-      path: `/category/${productData?.category_id}`,
+      path: `/products`,
     },
     { label: productData?.title || "Product title" },
   ];
@@ -73,9 +89,9 @@ export default function ProductPage() {
             </nav>
           </div>
           {/* information */}
-          <div className="flex gap-x-10">
+          <div className="flex justify-between">
             <div>
-              <p className="text-[14px] leading-4 font-bold text-black">
+              <p className="text-[18px] leading-4 font-bold text-black">
                 {productData ? productData.title : ""}
               </p>
               <img
@@ -85,7 +101,7 @@ export default function ProductPage() {
               />
             </div>
             <div>
-              <p className="text-gray-500">
+              <p className="text-gray-500 w-[400px]">
                 {productData ? productData.description : ""}
               </p>
             </div>
@@ -93,7 +109,8 @@ export default function ProductPage() {
         </div>
         {/* price section */}
         <div className="p-[20px] w-[450px] h-[200px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
-          <div className="font-bold text-[20px]">
+          <div className="text-[20px] flex gap-5 items-center">
+            <h1 className="text-primary font-bold">პროდუქტის ფასი:</h1>
             {productData?.salePrice ? (
               <div className="flex gap-2 items-center">
                 <span className="text-primary">{productData?.salePrice}₾</span>
@@ -123,6 +140,15 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+
+      {similarProducts.length > 0 && (
+        <div>
+          <h3 className="font-bold text-xl text-primary">მსგავსი პროდუქტები</h3>
+          <div className="similar-products">
+            <SimilarProductsSlider similarProducts={similarProducts} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
