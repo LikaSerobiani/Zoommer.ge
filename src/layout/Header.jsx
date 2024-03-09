@@ -14,11 +14,11 @@ import DotsIcon from "../components/icons/DotsIcon";
 import Login from "../components/modals/Login";
 import PhoneIcon from "../components/icons/PhoneIcon";
 import useScrollDirection from "../hooks/UseScrollDirection";
-// import { useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
   const navigate = useNavigate();
-  // const { cartCount } = useCart();
+  const { cartProducts } = useCart();
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const scrollDirection = useScrollDirection();
@@ -38,7 +38,7 @@ export default function Header() {
     <header
       className={`sticky ${
         scrollDirection === "down" ? "-top-24" : "top-0"
-      } transition-all duration-500 z-50 pb-[50px]`}
+      } transition-all duration-500 pb-[50px] z-50`}
     >
       <div className="bg-primary py-3">
         <div className="container flex items-center justify-between">
@@ -78,18 +78,17 @@ export default function Header() {
             <Search />
 
             {/* Buttons */}
-            <div className="flex gap-[18px]">
-              <Link to="/cart" className="relative">
+            <div className="flex">
+              <Link to="/cart">
                 <Button
                   title="კალათა"
                   icon={<CartIcon width="24px" height="24px" />}
                   className="bg-white text-black"
                 />
-
-                {/* <span className="bg-primary text-white rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center z-10">
-                  {cartCount}
-                </span> */}
               </Link>
+              <span className="bg-primary rounded-full text-white relative top-[-10px] right-[90px] w-6 h-6 text-center">
+                {cartProducts.reduce((total, item) => total + item.count, 0)}{" "}
+              </span>
 
               {localStorage.getItem("accessToken") ? (
                 <Button
