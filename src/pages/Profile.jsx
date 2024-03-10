@@ -18,10 +18,8 @@ const ProfilePage = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
-
-    setTimeout(() => {
-      nav("/");
-    }, 1000);
+    localStorage.removeItem("refreshToken");
+    nav("/");
   };
 
   return (

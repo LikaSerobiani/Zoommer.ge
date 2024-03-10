@@ -16,6 +16,7 @@ import PaymentMethod from "./pages/payments/PaymentMethods";
 import ReturnItem from "./pages/payments/ReturnItem";
 import CartPage from "./pages/Cart";
 import ProductPage from "./pages/Product";
+import ProductsPage from "./pages/Products";
 import { CartProvider } from "./context/CartContext";
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/payment" element={<Payment />} />

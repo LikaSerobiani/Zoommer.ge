@@ -18,7 +18,7 @@ const Product = ({ product }) => {
         <img
           src={product?.image}
           className="w-full h-40 object-contain"
-          alt={product.title}
+          alt={product?.title}
         />
         <div className="flex flex-col justify-start">
           <div className="font-bold text-[17px]">
@@ -34,7 +34,7 @@ const Product = ({ product }) => {
             )}
           </div>
 
-          <h3 className="line-clamp-1 w-[130px]">{product.title}</h3>
+          <h3 className="line-clamp-1 w-[130px]">{product?.title}</h3>
         </div>
       </div>
       <Button

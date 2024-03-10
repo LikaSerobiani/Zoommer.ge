@@ -1,17 +1,18 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from "react";
-import { Link } from "react-router-dom";
 
-export default function Category({ category }) {
+export default function Category({ category, onSelectCategory }) {
+  const handleClick = () => {
+    onSelectCategory(category.name);
+  };
+
   return (
-    <Link to={"/products"}>
+    <div onClick={handleClick}>
       <div className="cursor-pointer px-3 py-3 hover:bg-white border-b border-white flex items-center gap-2">
         <img src={category.image} />
         <span className="font-black text-black text-[14px]">
           {category.name}
         </span>
       </div>
-    </Link>
+    </div>
   );
 }
