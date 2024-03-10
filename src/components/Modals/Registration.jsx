@@ -34,10 +34,11 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
       }
 
       const errors = {};
-      if (phoneNumber.length < 9) {
-        errors.phoneNumber =
-          "ტელეფონის ნომერი უნდა იყოს 9 სიმბოლოზე მეტი ან ტოლი";
+
+      if (phoneNumber.length !== 9) {
+        errors.phoneNumber = "ტელეფონის ნომერი უნდა იყოს 9 ციფრიანი";
       }
+
       if (password.length < 8) {
         errors.password = "პაროლი უნდა იყოს 8 სიმბოლოზე მეტი ან ტოლი";
       }
@@ -72,6 +73,8 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
         setConfirmPassword("");
         setPhoneNumber("");
       } else if (response.status === 400) {
+        const errorMessage = response.message[0].message;
+        setErrors({ phoneNumber: errorMessage });
         setShowErrorModal(true);
         handleClose();
       }
@@ -155,6 +158,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
               onClick={handleRegister}
               title="რეგისტრაცია"
               className="bg-primary text-white w-full"
+              type="submit"
             />
           </div>
         </div>

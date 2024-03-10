@@ -14,14 +14,8 @@ export const registration = (data) => {
   return api.post(`${baseURL}/auth/register`, { ...data });
 };
 
-export const getProducts = (data, onlySales) => {
-  return api.get(`${baseURL}/product?onlySales=${onlySales}`, {
-    ...data,
-  });
-};
-
-export const getProductsByCategory = (categoryName, data) => {
-  return api.get(`${baseURL}/product?categoryName=${categoryName}`, data);
+export const getProducts = (params) => {
+  return api.get("/product", { params });
 };
 
 export const getProduct = (cardId, data) => {

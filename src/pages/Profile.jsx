@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("selectedPage");
     nav("/");
   };
 

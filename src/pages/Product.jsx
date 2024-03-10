@@ -3,13 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   getProduct,
   purchaseProducts,
-  getProductsByCategory,
+  getProducts,
 } from "../services/services";
 import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
 import { useCart } from "../context/CartContext";
 import SimilarProductsSlider from "../components/slider/SimilarProducts";
+import LoginModal from "../components/modals/Login";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -18,15 +19,18 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const [similarProducts, setSimilarProducts] = useState([]);
   const nav = useNavigate();
+  const [categoryName, setCategoryName] = useState("");
+  const isAuthenticated = localStorage.getItem("accessToken");
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const fetchData = async () => {
     try {
       const response = await getProduct(productId);
       setProductData(response.data);
+      setCategoryName(response.data.category_name);
 
-      const similarResponse = await getProductsByCategory({
+      const similarResponse = await getProducts({
         categoryName: response.data.category_name,
-        data: {},
       });
 
       const filteredSimilarProducts = similarResponse.data.products.filter(
@@ -45,6 +49,12 @@ export default function ProductPage() {
 
   const handlePurchase = async () => {
     try {
+      if (!isAuthenticated) {
+        setShowLoginModal(true);
+
+        return;
+      }
+
       await purchaseProducts({
         totalPrice: productData.salePrice
           ? productData.salePrice
@@ -61,10 +71,8 @@ export default function ProductPage() {
   const breadcrumbs = [
     { label: "მთავარი", path: "/" },
     {
-      label: productData?.category_name
-        ? productData.category_name
-        : "product category",
-      path: `/products`,
+      label: categoryName ? categoryName : "product category",
+      path: `/products?categoryName=${categoryName}`,
     },
     { label: productData?.title || "Product title" },
   ];
@@ -148,6 +156,12 @@ export default function ProductPage() {
             <SimilarProductsSlider similarProducts={similarProducts} />
           </div>
         </div>
+      )}
+      {showLoginModal && (
+        <LoginModal
+          showModal={showLoginModal}
+          handleClose={() => setShowLoginModal(false)}
+        />
       )}
     </div>
   );

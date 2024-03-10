@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { getPurchases } from "../services/services";
+import { purchaseProducts } from "../services/services";
 import Button from "../components/button/Index";
 import Success from "../components/modals/Success";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const PaymentForm = () => {
   const [showLocationForm, setShowLocationForm] = useState(true);
@@ -22,16 +23,28 @@ const PaymentForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const [location, setLocation] = useState("");
-  const [locationError, setLocationError] = useState("");
+  const [userLocation, setUserLocation] = useState("");
+  const [userLocationError, setUserLocationError] = useState("");
 
   const nav = useNavigate();
 
+  const { cartProducts } = useCart();
+
+  const calculateTotalPrice = () => {
+    return cartProducts.reduce(
+      (total, product) => total + product.cartProduct.price * product.count,
+      0
+    );
+  };
+
+  const totalItems = () => {
+    return cartProducts.reduce((total, item) => total + item.count, 0);
+  };
   const handleLocationSubmit = (evt) => {
     evt.preventDefault();
 
-    if (!location) {
-      setLocationError("შეიყვანეთ თქვენი ლოკაცია");
+    if (!userLocation) {
+      setUserLocationError("შეიყვანეთ თქვენი ლოკაცია");
       return;
     }
 
@@ -61,7 +74,11 @@ const PaymentForm = () => {
     }
 
     try {
-      const response = await getPurchases();
+      const response = await purchaseProducts({
+        totalPrice: calculateTotalPrice(),
+        totalItems: totalItems(),
+      });
+
       console.log("Purchase data:", response.data);
       setShowSuccessModal(true);
 
@@ -83,6 +100,7 @@ const PaymentForm = () => {
     }
   };
 
+  // validations
   const validateForm = () => {
     const errors = {};
 
@@ -131,120 +149,151 @@ const PaymentForm = () => {
 
   return (
     <div className="container">
-      <div className="flex flex-col items-center justify-center">
-        {showLocationForm && (
-          <form
-            onSubmit={handleLocationSubmit}
-            className="flex flex-col gap-y-[10px] items-center w-[500px] h-[37vh]"
-          >
-            <label htmlFor="location" className="font-bold text-[18px]">
-              გამარჯობა,გთხოვთ შეიყვანოთ მისამართის ველი!{" "}
-            </label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => {
-                setLocation(e.target.value);
-                setLocationError("");
-              }}
-              className="focus:outline-none font-bold text-base w-full bg-light-grey px-[16px] py-[16px] rounded-[16px]"
-            />
-            {locationError && (
-              <div className="error-message">{locationError}</div>
-            )}
-            <Button
-              type="submit"
-              title="დადასტურება"
-              className="bg-primary text-white w-full"
-            />
-          </form>
-        )}
-
-        {showCardForm && (
-          <div className="flex gap-5 flex-col">
-            <>
-              <Cards
-                number={state.number}
-                expiry={state.expiry}
-                cvc={state.cvc}
-                name={state.name}
-                focused={state.focus}
+      <div>
+        <div className="flex items-center justify-center">
+          {showLocationForm && (
+            <form
+              onSubmit={handleLocationSubmit}
+              className="flex flex-col gap-y-[10px] items-center w-[500px] h-[37vh]"
+            >
+              <label htmlFor="location" className="font-bold text-[18px]">
+                გამარჯობა,გთხოვთ შეიყვანოთ მისამართის ველი!{" "}
+              </label>
+              <input
+                type="text"
+                id="location"
+                value={userLocation}
+                onChange={(e) => {
+                  setUserLocation(e.target.value);
+                  setUserLocationError("");
+                }}
+                className="focus:outline-none font-bold text-base w-full bg-light-grey px-[16px] py-[16px] rounded-[16px]"
               />
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-y-[10px]"
-              >
-                <input
-                  type="number"
-                  name="number"
-                  placeholder="Card Number"
-                  value={state.number}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  className={`border ${
-                    errors.number ? "border-red-500" : "border-gray-500"
-                  } px-4 py-2 rounded-md`}
-                />
+              {userLocationError && (
+                <div className="error-message">{userLocationError}</div>
+              )}
+              <Button
+                type="submit"
+                title="დადასტურება"
+                className="bg-primary text-white w-full"
+              />
+            </form>
+          )}
+        </div>
+        {showCardForm && (
+          <div className="flex justify-around">
+            <div className="flex flex-wrap gap-8">
+              {cartProducts.map((product) => (
+                <div
+                  key={product.cartProduct.id}
+                  className="w-[150px] font-bold"
+                >
+                  <img
+                    src={product.cartProduct.image}
+                    alt={product.cartProduct.title}
+                  />
+                  <p>{product.cartProduct.title}</p>
+                </div>
+              ))}
+            </div>
 
-                {errors.number && (
-                  <div className="error-message">{errors.number}</div>
-                )}
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={state.name}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  className={`border ${
-                    errors.number ? "border-red-500" : "border-gray-500"
-                  } px-4 py-2 rounded-md`}
+            <div className="flex flex-col gap-5">
+              <>
+                <Cards
+                  number={state.number}
+                  expiry={state.expiry}
+                  cvc={state.cvc}
+                  name={state.name}
+                  focused={state.focus}
                 />
-                {errors.name && (
-                  <div className="error-message">{errors.name}</div>
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-y-[10px]"
+                >
+                  <input
+                    type="number"
+                    name="number"
+                    placeholder="Card Number"
+                    value={state.number}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    className={`border ${
+                      errors.number ? "border-red-500" : "border-gray-500"
+                    } px-4 py-2 rounded-md`}
+                  />
+
+                  {errors.number && (
+                    <div className="error-message">{errors.number}</div>
+                  )}
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={state.name}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    className={`border ${
+                      errors.number ? "border-red-500" : "border-gray-500"
+                    } px-4 py-2 rounded-md`}
+                  />
+                  {errors.name && (
+                    <div className="error-message">{errors.name}</div>
+                  )}
+                  <input
+                    type="text"
+                    name="expiry"
+                    placeholder="MM/YY Expiry"
+                    value={state.expiry}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    className={`border ${
+                      errors.number ? "border-red-500" : "border-gray-500"
+                    } px-4 py-2 rounded-md`}
+                  />
+                  {errors.expiry && (
+                    <div className="error-message">{errors.expiry}</div>
+                  )}
+                  <input
+                    type="number"
+                    name="cvc"
+                    placeholder="CVC"
+                    value={state.cvc}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    className={`border ${
+                      errors.number ? "border-red-500" : "border-gray-500"
+                    } px-4 py-2 rounded-md`}
+                  />
+                  {errors.cvc && (
+                    <div className="error-message">{errors.cvc}</div>
+                  )}
+                  <Button
+                    type="submit"
+                    title="დადასტურება"
+                    className="bg-primary text-white w-full"
+                  />
+                  <div className="font-bold text-[18px]">
+                    <h2>
+                      სულ გადასახდელი:
+                      <span className="text-lime-700">
+                        {" "}
+                        {calculateTotalPrice().toFixed(2)}₾
+                      </span>
+                    </h2>
+                    <h2>
+                      პროდუქტების რაოდენობა:{" "}
+                      <span className="text-primary">{totalItems()}</span>
+                    </h2>
+                  </div>
+                </form>
+                {successMessage && (
+                  <div className="success-message">{successMessage}</div>
                 )}
-                <input
-                  type="text"
-                  name="expiry"
-                  placeholder="MM/YY Expiry"
-                  value={state.expiry}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  className={`border ${
-                    errors.number ? "border-red-500" : "border-gray-500"
-                  } px-4 py-2 rounded-md`}
-                />
-                {errors.expiry && (
-                  <div className="error-message">{errors.expiry}</div>
+                {errorMessage && (
+                  <div className="error-message">{errorMessage}</div>
                 )}
-                <input
-                  type="number"
-                  name="cvc"
-                  placeholder="CVC"
-                  value={state.cvc}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  className={`border ${
-                    errors.number ? "border-red-500" : "border-gray-500"
-                  } px-4 py-2 rounded-md`}
-                />
-                {errors.cvc && (
-                  <div className="error-message">{errors.cvc}</div>
-                )}
-                <Button
-                  type="submit"
-                  title="დადასტურება"
-                  className="bg-primary text-white w-full"
-                />
-              </form>
-              {successMessage && (
-                <div className="success-message">{successMessage}</div>
-              )}
-              {errorMessage && (
-                <div className="error-message">{errorMessage}</div>
-              )}
-            </>
+              </>
+            </div>
           </div>
         )}
         {showSuccessModal && (

@@ -17,7 +17,7 @@ const Product = ({ product }) => {
       <div onClick={() => handleProductClick(product.id)}>
         <img
           src={product?.image}
-          className="w-full h-40 object-contain"
+          className="h-40 object-contain"
           alt={product?.title}
         />
         <div className="flex flex-col justify-start">

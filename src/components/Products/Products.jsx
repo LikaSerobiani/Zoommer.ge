@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from "react";
-import PromotionsSlider from "../slider/Promotions";
-import AllProductsSlider from "../slider/AllProducts";
+import Slider from "../slider/DefaultSlider";
 import { getProducts } from "../../services/services";
 
 const Products = () => {
-  const [allProducts, setAllProducts] = useState([]);
   const [saleProducts, setSaleProducts] = useState([]);
+  const [smartPhones, setSmartPhones] = useState([]);
+  const [laptops, setLaptops] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        // Fetch all products
-        const allProductsResponse = await getProducts({}, false);
-        if (allProductsResponse.data.products) {
-          setAllProducts(allProductsResponse.data.products);
-        }
-
-        // Fetch only sale products
-        const saleProductsResponse = await getProducts({}, true);
-        if (saleProductsResponse.data.products) {
-          setSaleProducts(saleProductsResponse.data.products);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
+  const fetchProducts = async () => {
+    try {
+      const saleProductsResponse = await getProducts({ onlySales: true });
+      if (saleProductsResponse.data.products) {
+        setSaleProducts(saleProductsResponse.data.products);
       }
-    };
 
+      const smartPhones = await getProducts({
+        categoryName: "სმარტფონები",
+      });
+      if (smartPhones.data.products) {
+        setSmartPhones(smartPhones.data.products);
+      }
+
+      const laptops = await getProducts({
+        categoryName: "ლეპტოპები",
+      });
+      if (laptops.data.products) {
+        setLaptops(laptops.data.products);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -39,9 +46,9 @@ const Products = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <AllProductsSlider products={allProducts} />
-
-          <PromotionsSlider products={saleProducts} />
+          <Slider title="ფასდაკლებული პროდუქტები" products={saleProducts} />
+          <Slider title="სმარტფონები" products={smartPhones} />
+          <Slider title="ლეპტოპები" products={laptops} />
         </>
       )}
     </div>

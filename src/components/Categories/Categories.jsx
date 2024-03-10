@@ -21,7 +21,7 @@ export default function Categories() {
   }, []);
 
   const handleSelectCategory = async (categoryName) => {
-    navigate(`/products?category=${categoryName}`);
+    navigate(`/products?categoryName=${categoryName}`);
   };
 
   return (

@@ -7,7 +7,7 @@ import Footer from "./layout/Footer";
 // Pages
 import HomePage from "./pages/Home";
 import ProfilePage from "./pages/Profile";
-import CategoriesPage from "./pages/Categories";
+import NavigationPage from "./pages/Navigation";
 import Payment from "./pages/Payment";
 import AboutUs from "./pages/navigation/AboutUs";
 import CorporateSales from "./pages/navigation/CorporateSales";
@@ -29,7 +29,7 @@ export default function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/categories" element={<NavigationPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/about-us" element={<AboutUs />} />
