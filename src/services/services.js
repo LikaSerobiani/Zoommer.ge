@@ -6,6 +6,10 @@ export const login = (data) => {
   return api.post(`${baseURL}/auth/login`, { ...data });
 };
 
+export const refreshAccessToken = (data) => {
+  return api.post(`${baseURL}/auth/update-tokens`, { ...data });
+};
+
 export const registration = (data) => {
   return api.post(`${baseURL}/auth/register`, { ...data });
 };
@@ -16,7 +20,7 @@ export const getProducts = (data, onlySales) => {
   });
 };
 
-export const getProductsByCategory = ({ categoryName, data }) => {
+export const getProductsByCategory = (categoryName, data) => {
   return api.get(`${baseURL}/product?categoryName=${categoryName}`, data);
 };
 

@@ -34,8 +34,10 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
         password: password,
       });
 
-      const { access_token } = response.data;
+      const { access_token, refresh_token } = response.data;
       localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("refreshToken", refresh_token);
+
       onLoggedIn(true);
       handleClose();
       setEmail("");
