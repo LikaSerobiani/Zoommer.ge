@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getProduct,
-  purchaseProducts,
-  getProducts,
-} from "../services/services";
+import { getProduct, getProducts } from "../services/services";
 import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
@@ -55,14 +51,7 @@ export default function ProductPage() {
         return;
       }
 
-      await purchaseProducts({
-        totalPrice: productData.salePrice
-          ? productData.salePrice
-          : productData.price,
-        totalItems: 1,
-      });
-
-      nav("/payment");
+      nav(`/payment`, { state: { productData } });
     } catch (error) {
       console.error(error);
     }
