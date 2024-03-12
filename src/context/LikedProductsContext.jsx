@@ -1,56 +1,76 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   getLikedProducts,
   addProductToLiked,
   removeProductFromLiked,
 } from "../services/services";
+import LoginModal from "../components/modals/Login";
+import { toast } from "react-toastify";
 
 const LikedProductsContext = createContext();
 
 export const LikedProductsProvider = ({ children }) => {
   const [likedProducts, setLikedProducts] = useState([]);
+  const isAuthenticated = localStorage.getItem("accessToken");
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const fetchLikedProducts = async () => {
-    try {
-      const response = await getLikedProducts();
-      setLikedProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching liked products:", error);
-    }
+  const fetchLikedProducts = () => {
+    getLikedProducts()
+      .then((response) => {
+        setLikedProducts(response.data);
+      })
+      .catch((error) => {
+        toast.error("მოხდა შეცდომა", {
+          position: "top-right",
+        });
+      });
   };
 
   useEffect(() => {
-    fetchLikedProducts();
-  }, []);
+    if (isAuthenticated) {
+      fetchLikedProducts();
+    } else {
+      setLikedProducts([]);
+    }
+  }, [isAuthenticated]);
 
-  const addLikedProduct = async (product) => {
-    try {
-      const isProductInLikedProducts = likedProducts.some(
-        (likedProduct) => likedProduct.likedProduct.id === product.id
-      );
+  const addLikedProduct = (product) => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
 
-      if (!isProductInLikedProducts) {
-        const response = await addProductToLiked({ product_id: product.id });
-        fetchLikedProducts();
-      } else {
-        console.log("Product is already in wishList.");
-      }
-    } catch (error) {
-      console.error(error);
+    const isProductInLikedProducts = likedProducts.some(
+      (likedProduct) => likedProduct.likedProduct.id === product.id
+    );
+
+    if (!isProductInLikedProducts) {
+      addProductToLiked({ product_id: product.id })
+        .then((response) => {
+          fetchLikedProducts();
+        })
+        .catch((error) => {
+          toast.error("მოხდა შეცდომა", {
+            position: "top-right",
+          });
+        });
+    } else {
+      console.log("Product is already in wishList.");
     }
   };
 
-  const removeLikedProduct = async (productId) => {
-    try {
-      await removeProductFromLiked(productId);
-      setLikedProducts(
-        likedProducts.filter((product) => product.id !== productId)
-      );
-    } catch (error) {
-      console.error("Error removing product from wishList:", error);
-    }
+  const removeLikedProduct = (productId) => {
+    removeProductFromLiked(productId)
+      .then(() => {
+        setLikedProducts((prevLikedProducts) =>
+          prevLikedProducts.filter((product) => product.id !== productId)
+        );
+      })
+      .catch((error) => {
+        toast.error("მოხდა შეცდომა", {
+          position: "top-right",
+        });
+      });
   };
 
   return (
@@ -62,7 +82,14 @@ export const LikedProductsProvider = ({ children }) => {
       }}
     >
       {children}
+      {showLoginModal && (
+        <LoginModal
+          showModal={showLoginModal}
+          handleClose={() => setShowLoginModal(false)}
+        />
+      )}
     </LikedProductsContext.Provider>
   );
 };
+
 export const useLikedProducts = () => useContext(LikedProductsContext);

@@ -1,10 +1,10 @@
 import React from "react";
 import { useLikedProducts } from "../../context/LikedProductsContext";
-import TrashIcon from "../icons/TrashIcon";
 import { useCart } from "../../context/CartContext";
 import Button from "../button/Index";
 import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
+import LikeIcon from "../icons/LikeIcon";
 
 export default function WishList() {
   const { likedProducts, removeLikedProduct } = useLikedProducts();
@@ -16,17 +16,19 @@ export default function WishList() {
   };
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap gap-y-6">
+      <h2 className="text-xl font-bold">ვიშლისტი</h2>
+      <div className="border-b-2 w-full border-light-grey"></div>
       {likedProducts.map((product) => (
         <div key={product?.likedProduct.id} className="relative">
           <button
             className="absolute top-0 right-[30px] m-2 cursor-pointer"
             onClick={() => removeLikedProduct(product.id)}
           >
-            <TrashIcon />
+            <LikeIcon color="red" />
           </button>
           <div className="flex gap-2 flex-col h-80 w-52 bg-white rounded-lg p-2 cursor-pointer">
-            <div onClick={() => handleProductClick(product.id)}>
+            <div onClick={() => handleProductClick(product.likedProduct.id)}>
               <img
                 src={product?.likedProduct.image}
                 className="h-40 object-contain"
@@ -57,7 +59,7 @@ export default function WishList() {
                 title="დამატება"
                 className="bg-orange text-black rounded-md text-sm"
                 icon={<CartIcon width="20px" height="20px" />}
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(product.likedProduct)}
               />
             </div>
           </div>

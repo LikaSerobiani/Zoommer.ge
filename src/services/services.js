@@ -62,6 +62,6 @@ export const addProductToLiked = (data) => {
   return api.post(`${baseURL}/liked-products`, { ...data });
 };
 
-export const removeProductFromLiked = (productId, data) => {
-  return api.delete(`${baseURL}/liked-products/${productId}`, { ...data });
+export const removeProductFromLiked = (productId) => {
+  return api.delete(`${baseURL}/liked-products/${productId}`);
 };

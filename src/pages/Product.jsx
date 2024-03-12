@@ -15,7 +15,8 @@ export default function ProductPage() {
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
-  const { addLikedProduct } = useLikedProducts();
+  const { addLikedProduct, likedProducts, removeLikedProduct } =
+    useLikedProducts();
   const [similarProducts, setSimilarProducts] = useState([]);
   const nav = useNavigate();
   const [categoryName, setCategoryName] = useState("");
@@ -45,7 +46,11 @@ export default function ProductPage() {
   useEffect(() => {
     fetchData(productId);
   }, [productId]);
-  console.log(productId);
+
+  const isProductLiked = likedProducts.some(
+    (likedProduct) => likedProduct.likedProduct.id === productId
+  );
+
   const handlePurchase = async () => {
     try {
       if (!isAuthenticated) {
@@ -55,6 +60,18 @@ export default function ProductPage() {
       }
 
       nav(`/payment`, { state: { productData } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddToCart = () => {
+    try {
+      if (!isAuthenticated) {
+        setShowLoginModal(true);
+        return;
+      }
+      addToCart(productData);
     } catch (error) {
       console.error(error);
     }
@@ -93,9 +110,13 @@ export default function ProductPage() {
             <div className="relative">
               <div
                 className="absolute top-[15px] right-0 m-2 cursor-pointer"
-                onClick={() => addLikedProduct(productData)}
+                onClick={() =>
+                  isProductLiked
+                    ? removeLikedProduct(likedProducts[0].id)
+                    : addLikedProduct(productData)
+                }
               >
-                <LikeIcon />
+                <LikeIcon color={isProductLiked ? "red" : "grey"} />{" "}
               </div>
               <div>
                 <p className="text-[16px] leading-4 font-bold text-black">
@@ -144,7 +165,7 @@ export default function ProductPage() {
               title="დამატება"
               className="bg-orange text-black rounded-[12px] text-[13px] w-[411px]"
               icon={<CartIcon width="20px" height="20px" />}
-              onClick={() => addToCart(productData)}
+              onClick={handleAddToCart}
             />
           </div>
         </div>
