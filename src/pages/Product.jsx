@@ -7,19 +7,22 @@ import CartIcon from "../components/icons/CartIcon";
 import { useCart } from "../context/CartContext";
 import SimilarProductsSlider from "../components/slider/SimilarProducts";
 import LoginModal from "../components/modals/Login";
+import { useLikedProducts } from "../context/LikedProductsContext";
+import LikeIcon from "../components/icons/LikeIcon";
 
 export default function ProductPage() {
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
+  const { addLikedProduct } = useLikedProducts();
   const [similarProducts, setSimilarProducts] = useState([]);
   const nav = useNavigate();
   const [categoryName, setCategoryName] = useState("");
   const isAuthenticated = localStorage.getItem("accessToken");
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = async (productId) => {
     try {
       const response = await getProduct(productId);
       setProductData(response.data);
@@ -40,9 +43,9 @@ export default function ProductPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(productId);
   }, [productId]);
-
+  console.log(productId);
   const handlePurchase = async () => {
     try {
       if (!isAuthenticated) {
@@ -86,17 +89,26 @@ export default function ProductPage() {
             </nav>
           </div>
           {/* information */}
-          <div className="flex justify-between">
-            <div>
-              <p className="text-[18px] leading-4 font-bold text-black">
-                {productData ? productData.title : ""}
-              </p>
-              <img
-                src={productData?.image}
-                alt={productData?.title || "Product"}
-                className="w-full h-56 object-contain"
-              />
+          <div className="flex justify-between mb-[50px]">
+            <div className="relative">
+              <div
+                className="absolute top-[15px] right-0 m-2 cursor-pointer"
+                onClick={() => addLikedProduct(productData)}
+              >
+                <LikeIcon />
+              </div>
+              <div>
+                <p className="text-[16px] leading-4 font-bold text-black">
+                  {productData ? productData.title : ""}
+                </p>
+                <img
+                  src={productData?.image}
+                  alt={productData?.title || "Product"}
+                  className="w-full h-56 object-contain"
+                />
+              </div>
             </div>
+
             <div>
               <p className="text-gray-500 w-[400px]">
                 {productData ? productData.description : ""}

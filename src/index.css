@@ -20,3 +20,19 @@
 .success-message {
   color: green;
 }
+
+.input-range__track--active {
+  @apply bg-[#ec5e2a];
+}
+
+.input-range__slider {
+  @apply bg-[#ec5e2a] border-[#ec5e2a];
+}
+
+.input-range__label {
+  @apply text-[#000000] text-sm font-bold;
+}
+.input-range__track--background,
+.input-range__slider-container {
+  @apply bg-[#f8c2ae];
+}

@@ -18,16 +18,16 @@ export const getProducts = (params) => {
   return api.get("/product", { params });
 };
 
-export const getProduct = (cardId, data) => {
-  return api.get(`${baseURL}/product/${cardId}`, { ...data });
-};
-
 export const getCategories = (data) => {
   return api.get(`${baseURL}/product-category`, { ...data });
 };
 
 export const getCartProducts = (data) => {
   return api.get(`${baseURL}/cart`, { ...data });
+};
+
+export const getProduct = (productId, data) => {
+  return api.get(`${baseURL}/product/${productId}`, { ...data });
 };
 
 export const addCartProducts = (data) => {
@@ -52,4 +52,16 @@ export const purchaseProducts = (data) => {
 
 export const getPurchases = (data) => {
   return api.get(`${baseURL}/purchases`, { ...data });
+};
+
+export const getLikedProducts = (data) => {
+  return api.get(`${baseURL}/liked-products`, { ...data });
+};
+
+export const addProductToLiked = (data) => {
+  return api.post(`${baseURL}/liked-products`, { ...data });
+};
+
+export const removeProductFromLiked = (productId, data) => {
+  return api.delete(`${baseURL}/liked-products/${productId}`, { ...data });
 };

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "../components/search/Index";
 import Button from "../components/button/Index";
 
-// icons
+// Icons
 import Logo from "../assets/Images/main-logo.svg";
 import CartIcon from "../components/icons/CartIcon";
 import UserIcon from "../components/icons/UserIcon";
@@ -74,11 +74,9 @@ export default function Header() {
               />
             </Link>
             {/* Search */}
-
             <Search />
-
             {/* Buttons */}
-            <div className="flex">
+            <div className="flex gap-[5px]">
               <Link to="/cart">
                 <Button
                   title="კალათა"
@@ -86,9 +84,12 @@ export default function Header() {
                   className="bg-white text-black"
                 />
               </Link>
-              <span className="bg-primary rounded-full text-white relative top-[-10px] right-[90px] w-6 h-6 text-center">
-                {cartProducts.reduce((total, item) => total + item.count, 0)}{" "}
-              </span>
+
+              {cartProducts.length > 0 && (
+                <span className="bg-primary rounded-full text-white relative top-[-10px] right-[90px] w-6 h-6 text-center">
+                  {cartProducts.reduce((total, item) => total + item.count, 0)}
+                </span>
+              )}
 
               {localStorage.getItem("accessToken") ? (
                 <Button

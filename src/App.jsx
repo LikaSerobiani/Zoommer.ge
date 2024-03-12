@@ -18,28 +18,32 @@ import CartPage from "./pages/Cart";
 import ProductPage from "./pages/Product";
 import ProductsPage from "./pages/Products";
 import { CartProvider } from "./context/CartContext";
+import { LikedProductsProvider } from "./context/LikedProductsContext";
 
 export default function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/product/:productId" element={<ProductPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/categories" element={<NavigationPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/corporate-sales" element={<CorporateSales />} />
-          <Route path="/trade-in" element={<TradeIn />} />
-          <Route path="/payment-methods" element={<PaymentMethod />} />
-          <Route path="/return-item" element={<ReturnItem />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </CartProvider>
+    <LikedProductsProvider>
+      {" "}
+      <CartProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/categories" element={<NavigationPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/corporate-sales" element={<CorporateSales />} />
+            <Route path="/trade-in" element={<TradeIn />} />
+            <Route path="/payment-methods" element={<PaymentMethod />} />
+            <Route path="/return-item" element={<ReturnItem />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </CartProvider>
+    </LikedProductsProvider>
   );
 }

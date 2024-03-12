@@ -4,6 +4,7 @@ import ProfileIcon from "../components/icons/ProfileIcon";
 import Sidebar from "../components/sideBar/Index";
 import Profile from "../components/userInformation/Profile";
 import Purchase from "../components/userInformation/Purchase";
+import WishList from "../components/userInformation/WishList";
 
 const ProfilePage = () => {
   const nav = useNavigate();
@@ -43,6 +44,7 @@ const ProfilePage = () => {
           <div className="w-full h-full">
             {selectedPage === "Profile" && <Profile />}
             {selectedPage === "Purchase" && <Purchase />}
+            {selectedPage === "WishList" && <WishList />}
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// CartContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   getCartProducts,

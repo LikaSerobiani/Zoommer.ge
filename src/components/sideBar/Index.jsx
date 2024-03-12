@@ -24,6 +24,12 @@ export default function Sidebar({ onItemClick }) {
       >
         შეკვეთები
       </li>
+      <li
+        onClick={() => handleItemClick("WishList")}
+        style={{ fontWeight: selectedItem === "WishList" ? "bold" : "normal" }}
+      >
+        ვიშლისტი
+      </li>
     </ul>
   );
 }
