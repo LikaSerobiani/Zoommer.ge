@@ -163,7 +163,7 @@ const PaymentForm = ({ paymentParams }) => {
           )}
         </div>
         {showCardForm && (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 items-center">
             <>
               <Cards
                 number={state.number}
@@ -174,7 +174,7 @@ const PaymentForm = ({ paymentParams }) => {
               />
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-y-[10px]"
+                className="flex flex-col gap-y-[10px] w-[280px]"
               >
                 <input
                   type="number"
