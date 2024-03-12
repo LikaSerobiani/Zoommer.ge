@@ -37,7 +37,7 @@ const ProfilePage = () => {
             გამოსვლა
           </div>
         </div>
-        <div className="flex flex-row justify-between gap-[20px]">
+        <div className="flex flex-row justify-between gap-[60px]">
           <div>
             <Sidebar onItemClick={setSelectedPage} />
           </div>

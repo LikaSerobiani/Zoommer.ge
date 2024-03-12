@@ -20,7 +20,7 @@ export default function Purchase() {
   return (
     <div className="flex flex-col gap-5">
       <h2 className=" text-lg font-bold">მიმდინარე შეკვეთები</h2>
-      <div className="border-b-2 w-full border-secondary"></div>
+      <div className="border-b-2 w-full border-light-grey"></div>
       <div className="flex gap-10 flex-wrap">
         {purchases.map((purchase) => (
           <div key={purchase.id}>

@@ -54,9 +54,10 @@ export default function ProductsPage() {
     const selectedPage = data.selected + 1;
     setPage(selectedPage);
   };
+
   return (
     <div className="container">
-      <ul className="flex gap-5 ">
+      <ul className="flex gap-5">
         {breadcrumbs.map((breadcrumb, index) => (
           <Breadcrumb
             key={index}
@@ -66,8 +67,9 @@ export default function ProductsPage() {
           />
         ))}
       </ul>
+      {/* Filter */}
       <div className="flex flex-row mt-10 gap-10">
-        <div className="w-1/4 pr-4 mt-10">
+        <div className="w-1/4 mt-10 flex flex-col gap-y-3">
           <InputRange
             minValue={0}
             maxValue={5000}
@@ -77,25 +79,25 @@ export default function ProductsPage() {
               setMaxPrice(value.max);
             }}
           />
-          <div className="flex flex-row mt-4 gap-4">
-            <div className="flex flex-col mb-4">
-              <label htmlFor="minPrice" className="text-sm text-gray-600 mb-1">
+          <div className="flex flex-row justify-center mt-4 gap-4">
+            <div className="flex items-center bg-white border border-primary py-[5px] px-2.5 rounded-md gap-2 ">
+              <label htmlFor="minPrice" className="text-gray-600">
                 MIN:
               </label>
               <input
-                className="w-20 border border-orange-600 py-1 px-2 rounded-md"
+                className="w-20 py-1"
                 type="number"
                 id="minPrice"
                 value={minPrice}
                 onChange={handleMinPriceChange}
               />
             </div>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="maxPrice" className="text-sm text-gray-600 mb-1">
+            <div className="flex items-center bg-white border border-primary rounded-md gap-2 py-[5px] px-2.5">
+              <label htmlFor="maxPrice" className="text-gray-600">
                 MAX:
               </label>
               <input
-                className="w-20 border border-orange-600 py-1 px-2 rounded-md"
+                className="w-20 py-1"
                 type="number"
                 id="maxPrice"
                 value={maxPrice}

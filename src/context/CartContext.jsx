@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   getCartProducts,
@@ -7,6 +5,7 @@ import {
   removeCartProducts,
 } from "../services/services";
 import { toast } from "react-toastify";
+import LoginModal from "../components/modals/Login";
 
 const CartContext = createContext();
 
@@ -14,6 +13,7 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const fetchCartItems = () => {
     setLoading(true);
@@ -44,6 +44,13 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const addToCart = (product) => {
+    const isAuthenticated = localStorage.getItem("accessToken");
+
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setLoading(true);
 
     addCartProducts({ product_id: product.id })
@@ -55,7 +62,7 @@ export const CartProvider = ({ children }) => {
       })
       .catch((error) => {
         setError(error);
-        toast.error("გაიარე რეგისტრაცია ან დალოგინდი", {
+        toast.error("მოხდა შეცდომა", {
           position: "top-right",
         });
       })
@@ -100,6 +107,12 @@ export const CartProvider = ({ children }) => {
       }}
     >
       {children}
+      {showLoginModal && (
+        <LoginModal
+          showModal={showLoginModal}
+          handleClose={() => setShowLoginModal(false)}
+        />
+      )}
     </CartContext.Provider>
   );
 };

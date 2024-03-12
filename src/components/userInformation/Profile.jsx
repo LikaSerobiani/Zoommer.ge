@@ -46,7 +46,7 @@ export default function Profile() {
   }, [updatedUserData]);
 
   return (
-    <div className="flex justify-around">
+    <div className="flex justify-between">
       {/* Update profile */}
       <div className="w-[500px] flex flex-col gap-5">
         <p className="font-bold text-[20px]">პროფილის რედაქტირება</p>
