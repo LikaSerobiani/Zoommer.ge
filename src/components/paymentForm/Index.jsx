@@ -5,6 +5,7 @@ import Button from "../button/Index";
 import Success from "../modals/Success";
 import { useNavigate } from "react-router-dom";
 import { purchaseProducts } from "../../services/services";
+import { useTranslation } from "react-i18next";
 
 const PaymentForm = ({ paymentParams }) => {
   const [showLocationForm, setShowLocationForm] = useState(true);
@@ -12,6 +13,8 @@ const PaymentForm = ({ paymentParams }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [userLocation, setUserLocation] = useState("");
   const [userLocationError, setUserLocationError] = useState("");
+  const { t } = useTranslation("global");
+  const nav = useNavigate();
 
   const [state, setState] = useState({
     number: "",
@@ -20,16 +23,18 @@ const PaymentForm = ({ paymentParams }) => {
     name: "",
     focus: "",
   });
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const nav = useNavigate();
+
+  const currentYear = new Date().getFullYear() % 100;
 
   const handleLocationSubmit = (evt) => {
     evt.preventDefault();
 
     if (!userLocation) {
-      setUserLocationError("შეიყვანეთ თქვენი ლოკაცია");
+      setUserLocationError(t("payment.location"));
       return;
     }
 
@@ -83,52 +88,59 @@ const PaymentForm = ({ paymentParams }) => {
     }
   };
 
+  const validationMessages = {
+    required: t("payment.validation.required"),
+    invalidCardNumber: t("payment.validation.invalidCardNumber"),
+    invalidName: t("payment.validation.invalidName"),
+    invalidExpiryDate: t("payment.validation.invalidExpiryDate"),
+    expiryYearRange: t("payment.validation.expiryYearRange", {
+      minYear: currentYear,
+      maxYear: currentYear + 10,
+    }),
+    invalidExpiryMonth: t("payment.validation.invalidExpiryMonth"),
+    invalidCVC: t("payment.validation.invalidCVC"),
+  };
+
   // validations
   const validateForm = () => {
     const errors = {};
 
     if (!state.number) {
-      errors.number = "Card number is required";
+      errors.number = validationMessages.required;
     } else if (!/^\d{16}$/.test(state.number)) {
-      errors.number = "Invalid card number";
+      errors.number = validationMessages.invalidCardNumber;
     }
 
     if (!state.name) {
-      errors.name = "Name is required";
+      errors.name = validationMessages.required;
     }
 
     if (!state.expiry) {
-      errors.expiry = "Expiry date is required";
+      errors.expiry = validationMessages.required;
     } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(state.expiry)) {
-      errors.expiry = "Invalid expiry date";
+      errors.expiry = validationMessages.invalidExpiryDate;
     } else {
       const [month, year] = state.expiry.split("/");
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear() % 100;
-
       if (
         parseInt(year, 10) < currentYear ||
         parseInt(year, 10) > currentYear + 10
       ) {
-        errors.expiry =
-          "Expiry year should be between " +
-          currentYear +
-          " and " +
-          (currentYear + 10);
+        errors.expiry = validationMessages.expiryYearRange;
       }
       if (parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
-        errors.expiry = "Expiry month should be between 01 and 12";
+        errors.expiry = validationMessages.invalidExpiryMonth;
       }
     }
 
     if (!state.cvc) {
-      errors.cvc = "CVC is required";
+      errors.cvc = validationMessages.required;
     } else if (!/^\d{3,4}$/.test(state.cvc)) {
-      errors.cvc = "Invalid CVC";
+      errors.cvc = validationMessages.invalidCVC;
     }
 
     return errors;
   };
+
   return (
     <div className="container">
       <div>
@@ -139,7 +151,7 @@ const PaymentForm = ({ paymentParams }) => {
               className="flex flex-col gap-y-[10px] items-center w-[500px] h-[37vh]"
             >
               <label htmlFor="location" className="font-bold text-[18px]">
-                გამარჯობა,გთხოვთ შეიყვანოთ მისამართის ველი!{" "}
+                {t("payment.location")}
               </label>
               <input
                 type="text"
@@ -156,7 +168,7 @@ const PaymentForm = ({ paymentParams }) => {
               )}
               <Button
                 type="submit"
-                title="დადასტურება"
+                title={t("buttons.submit")}
                 className="bg-primary text-white w-full cursor-pointer"
               />
             </form>
@@ -235,7 +247,7 @@ const PaymentForm = ({ paymentParams }) => {
                 )}
                 <Button
                   type="submit"
-                  title="დადასტურება"
+                  title={t("buttons.submit")}
                   className="bg-primary text-white w-full"
                 />
               </form>
@@ -250,7 +262,7 @@ const PaymentForm = ({ paymentParams }) => {
         )}
         {showSuccessModal && (
           <Success
-            title="წარმატებული გადახდა!"
+            title={t("payment.successMessage")}
             showModal={showSuccessModal}
             handleClose={() => setShowSuccessModal(false)}
           />

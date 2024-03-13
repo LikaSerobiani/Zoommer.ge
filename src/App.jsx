@@ -11,9 +11,7 @@ import NavigationPage from "./pages/Navigation";
 import Payment from "./pages/Payment";
 import AboutUs from "./pages/navigation/AboutUs";
 import CorporateSales from "./pages/navigation/CorporateSales";
-import TradeIn from "./pages/navigation/TradeIn";
 import PaymentMethod from "./pages/payments/PaymentMethods";
-import ReturnItem from "./pages/payments/ReturnItem";
 import CartPage from "./pages/Cart";
 import ProductPage from "./pages/Product";
 import ProductsPage from "./pages/Products";
@@ -37,9 +35,7 @@ export default function App() {
             <Route path="/payment" element={<Payment />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/corporate-sales" element={<CorporateSales />} />
-            <Route path="/trade-in" element={<TradeIn />} />
             <Route path="/payment-methods" element={<PaymentMethod />} />
-            <Route path="/return-item" element={<ReturnItem />} />
           </Routes>
           <Footer />
         </Router>

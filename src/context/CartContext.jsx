@@ -6,6 +6,7 @@ import {
 } from "../services/services";
 import { toast } from "react-toastify";
 import LoginModal from "../components/modals/Login";
+import { useTranslation } from "react-i18next";
 
 const CartContext = createContext();
 
@@ -14,6 +15,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { t } = useTranslation("global");
 
   const fetchCartItems = () => {
     setLoading(true);
@@ -55,7 +57,7 @@ export const CartProvider = ({ children }) => {
 
     addCartProducts({ product_id: product.id })
       .then(() => {
-        toast.success("პროდუქტი დაემატა კალათაში", {
+        toast.success(t("toastifyMessages.addToCart"), {
           position: "top-right",
         });
         fetchCartItems();
@@ -79,7 +81,7 @@ export const CartProvider = ({ children }) => {
         setCartProducts((prevProducts) =>
           prevProducts.filter((product) => product.id !== productId)
         );
-        toast.success("პროდუქტი წარმატებით წაიშალა", {
+        toast.success(t("toastifyMessages.removeFromCart"), {
           position: "top-right",
         });
       })

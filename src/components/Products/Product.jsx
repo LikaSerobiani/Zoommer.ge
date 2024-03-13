@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useLikedProducts } from "../../context/LikedProductsContext";
 import LikeIcon from "../icons/LikeIcon";
+import { useTranslation } from "react-i18next";
 
 const Product = ({ product }) => {
   const { addToCart } = useCart();
   const { addLikedProduct, likedProducts, removeLikedProduct } =
     useLikedProducts();
+  const { t } = useTranslation("global");
+
   const nav = useNavigate();
 
   const isProductLiked = likedProducts.some(
@@ -31,6 +34,7 @@ const Product = ({ product }) => {
     }
     return <span>{product.price}₾</span>;
   };
+
   return (
     <div className="relative h-80 w-52 bg-white rounded-lg p-2 cursor-pointer">
       <div
@@ -59,7 +63,7 @@ const Product = ({ product }) => {
 
         <div className="flex flex-row gap-2">
           <Button
-            title="დამატება"
+            title={t("buttons.addToCart")}
             className="bg-orange text-black rounded-md text-sm"
             icon={<CartIcon width="20px" height="20px" />}
             onClick={() => addToCart(product)}

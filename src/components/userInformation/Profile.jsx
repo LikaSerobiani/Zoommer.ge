@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../button/Index";
 import { updateUserDetails, getUserDetails } from "../../services/services";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
   const [userData, setUserData] = useState({
@@ -8,6 +9,7 @@ export default function Profile() {
     last_name: "",
     phone_number: "",
   });
+  const { t } = useTranslation("global");
 
   const [updatedUserData, setUpdatedUserData] = useState(null);
 
@@ -49,12 +51,15 @@ export default function Profile() {
     <div className="flex justify-between">
       {/* Update profile */}
       <div className="w-[500px] flex flex-col gap-5">
-        <p className="font-bold text-[20px]">პროფილის რედაქტირება</p>
+        <p className="font-bold text-[20px]">
+          {" "}
+          {t("profilePage.profileInfo.updateProfile")}
+        </p>
         <form className="flex flex-col gap-y-[20px]">
           <input
             type="text"
             name="phone_number"
-            placeholder="ტელეფონის ნომერი"
+            placeholder={t("placeholders.phoneNumber")}
             value={userData.phone_number}
             onChange={handleChange}
             className="focus:outline-none font-bold text-base w-full bg-light-grey px-[16px] py-[16px] rounded-[16px]"
@@ -62,7 +67,7 @@ export default function Profile() {
           <input
             type="text"
             name="first_name"
-            placeholder="სახელი"
+            placeholder={t("placeholders.firstName")}
             value={userData.first_name}
             onChange={handleChange}
             className="focus:outline-none font-bold text-base w-full bg-light-grey px-[16px] py-[16px] rounded-[16px]"
@@ -70,7 +75,7 @@ export default function Profile() {
           <input
             type="text"
             name="last_name"
-            placeholder="გვარი"
+            placeholder={t("placeholders.lastName")}
             value={userData.last_name}
             onChange={handleChange}
             className="focus:outline-none font-bold text-base w-full bg-light-grey px-[16px] py-[16px] rounded-[16px]"
@@ -78,7 +83,7 @@ export default function Profile() {
           <Button
             type="button"
             onClick={handleUpdateProfile}
-            title="განახლება"
+            title={t("buttons.update")}
             className="text-white bg-primary w-full"
           />
         </form>
@@ -86,18 +91,22 @@ export default function Profile() {
       {/* Updated profile */}
       {updatedUserData && (
         <div className="w-[500px] flex flex-col gap-5">
-          <h2 className="font-bold text-[20px]">განახლებული ინფორმაცია</h2>
+          <h2 className="font-bold text-[20px]">
+            {t("profilePage.profileInfo.updatedProfile")}
+          </h2>
           <div className="bg-light-grey rounded-[16px] p-[20px] flex flex-col gap-3">
             <p>
-              <span className="font-bold">ტელეფონის ნომერი:</span>{" "}
+              <span className="font-bold">
+                {t("placeholders.phoneNumber")}:
+              </span>{" "}
               {updatedUserData.phone_number}
             </p>
             <p>
-              <span className="font-bold">სახელი:</span>{" "}
+              <span className="font-bold">{t("placeholders.firstName")}:</span>{" "}
               {updatedUserData.first_name}
             </p>
             <p>
-              <span className="font-bold">გვარი:</span>{" "}
+              <span className="font-bold">{t("placeholders.lastName")}:</span>{" "}
               {updatedUserData.last_name}
             </p>
           </div>

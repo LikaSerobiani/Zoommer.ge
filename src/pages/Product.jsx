@@ -9,6 +9,7 @@ import SimilarProductsSlider from "../components/slider/SimilarProducts";
 import LoginModal from "../components/modals/Login";
 import { useLikedProducts } from "../context/LikedProductsContext";
 import LikeIcon from "../components/icons/LikeIcon";
+import { useTranslation } from "react-i18next";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -22,6 +23,7 @@ export default function ProductPage() {
   const [categoryName, setCategoryName] = useState("");
   const isAuthenticated = localStorage.getItem("accessToken");
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { t } = useTranslation("global");
 
   const fetchData = async (productId) => {
     try {
@@ -78,7 +80,7 @@ export default function ProductPage() {
   };
 
   const breadcrumbs = [
-    { label: "მთავარი", path: "/" },
+    { label: t("breadCrumb.main"), path: "/" },
     {
       label: categoryName ? categoryName : "product category",
       path: `/products?categoryName=${categoryName}`,
@@ -140,7 +142,9 @@ export default function ProductPage() {
         {/* price section */}
         <div className="p-[20px] w-[450px] h-[200px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
           <div className="text-[20px] flex gap-5 items-center">
-            <h1 className="text-primary font-bold">პროდუქტის ფასი:</h1>
+            <h1 className="text-primary font-bold">
+              {t("prices.productPrice")}
+            </h1>
             {productData?.salePrice ? (
               <div className="flex gap-2 items-center">
                 <span className="text-primary">{productData?.salePrice}₾</span>
@@ -156,13 +160,13 @@ export default function ProductPage() {
           {/* Buttons */}
           <div className="flex flex-col gap-[20px]">
             <Button
-              title="ყიდვა"
+              title={t("buttons.purchase")}
               className="bg-primary text-white rounded-[12px] text-[13px] w-[411px]"
               onClick={handlePurchase}
             />
 
             <Button
-              title="დამატება"
+              title={t("buttons.addToCart")}
               className="bg-orange text-black rounded-[12px] text-[13px] w-[411px]"
               icon={<CartIcon width="20px" height="20px" />}
               onClick={handleAddToCart}
@@ -173,7 +177,9 @@ export default function ProductPage() {
 
       {similarProducts.length > 0 && (
         <div>
-          <h3 className="font-bold text-xl text-primary">მსგავსი პროდუქტები</h3>
+          <h3 className="font-bold text-xl text-primary">
+            {t("sliders.similarProducts")}
+          </h3>
           <div className="similar-products">
             <SimilarProductsSlider similarProducts={similarProducts} />
           </div>

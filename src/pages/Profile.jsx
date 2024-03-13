@@ -5,9 +5,11 @@ import Sidebar from "../components/sideBar/Index";
 import Profile from "../components/userInformation/Profile";
 import Purchase from "../components/userInformation/Purchase";
 import WishList from "../components/userInformation/WishList";
+import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
   const nav = useNavigate();
+  const { t } = useTranslation("global");
 
   const [selectedPage, setSelectedPage] = useState(
     localStorage.getItem("selectedPage") || null
@@ -26,18 +28,21 @@ const ProfilePage = () => {
 
   return (
     <div className="container">
-      <div className="flex flex-col gap-y-[20px] ">
+      <div className="flex flex-col gap-y-[20px]">
         <div className="flex justify-between items-center border-b-2 pb-[20px] w-full">
           <div className="flex gap-2 items-center">
             <ProfileIcon />
 
-            <p className="font-bold text-[20px] ">გამარჯობა</p>
+            <p className="font-bold text-[20px]">
+              {" "}
+              {t("profilePage.welcome.title")}
+            </p>
           </div>
           <div onClick={handleLogOut} className="text-primary cursor-pointer">
-            გამოსვლა
+            {t("profilePage.logOut.title")}
           </div>
         </div>
-        <div className="flex flex-row justify-between gap-[60px]">
+        <div className="flex flex-row justify-between gap-[40px]">
           <div>
             <Sidebar onItemClick={setSelectedPage} />
           </div>

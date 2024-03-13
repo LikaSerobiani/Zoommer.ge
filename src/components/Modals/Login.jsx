@@ -11,6 +11,7 @@ import Registration from "./Registration";
 import { login } from "../../services/services";
 import Success from "./Success";
 import Error from "./Error";
+import { useTranslation } from "react-i18next";
 
 const Login = ({ showModal, handleClose, onLoggedIn }) => {
   const [email, setEmail] = useState("");
@@ -19,13 +20,17 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errors, setErrors] = useState({});
+  const { t } = useTranslation("global");
 
+  const validationMessage = {
+    required: t("modals.validation.required"),
+  };
   const handleLogin = async () => {
     try {
       setErrors({});
 
       if (!email || !password) {
-        setErrors({ message: "გთხოვთ შეავსოთ ყველა ველი" });
+        setErrors({ message: validationMessage.required });
         return;
       }
 
@@ -65,7 +70,9 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
     <>
       <Modal isModalOpen={showModal} onClose={handleClose}>
         <div className="flex justify-center flex-col gap-4">
-          <h2 className="text-center text-2xl font-bold">ავტორიზაცია</h2>
+          <h2 className="text-center text-2xl font-bold">
+            {t("modals.logInModal")}
+          </h2>
           {errors.message && (
             <div className="text-red-500 text-sm">{errors.message}</div>
           )}
@@ -73,14 +80,14 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
             <Input
               type="email"
               id="emailInput"
-              placeholder="ელ.ფოსტა"
+              placeholder={t("placeholders.email")}
               value={email}
               onChange={(e) => setEmail(e)}
             />
 
             <Input
               type="password"
-              placeholder="პაროლი"
+              placeholder={t("placeholders.password")}
               id="passwordInput"
               value={password}
               onChange={(e) => setPassword(e)}
@@ -91,11 +98,14 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
               className="cursor-pointer"
               onClick={handleShowRegistrationModal}
             >
-              არ ხარ დარეგისტრირებული?
+              {t("modals.notRegistered")}
             </span>
           </div>
           <div className="flex justify-center" onClick={handleLogin}>
-            <Button title="შესვლა" className="bg-primary text-white w-full" />
+            <Button
+              title={t("buttons.signIn")}
+              className="bg-primary text-white w-full"
+            />
           </div>
         </div>
       </Modal>
@@ -104,12 +114,12 @@ const Login = ({ showModal, handleClose, onLoggedIn }) => {
         handleClose={handleCloseRegistrationModal}
       />
       <Success
-        title="წარმატებული ავტორიზაცია"
+        title={t("modals.successMessage")}
         showModal={showSuccessModal}
         handleClose={() => setShowSuccessModal(false)}
       />
       <Error
-        title="მომხმარებელი ვერ მოიძებნა"
+        title={t("modals.errorMessage")}
         showModal={showErrorModal}
         handleClose={() => setShowErrorModal(false)}
       />

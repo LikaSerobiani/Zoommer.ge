@@ -5,11 +5,13 @@ import Button from "../button/Index";
 import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
 import LikeIcon from "../icons/LikeIcon";
+import { useTranslation } from "react-i18next";
 
 export default function WishList() {
   const { likedProducts, removeLikedProduct } = useLikedProducts();
   const { addToCart } = useCart();
   const nav = useNavigate();
+  const { t } = useTranslation("global");
 
   const handleProductClick = (productId) => {
     nav(`/product/${productId}`);
@@ -17,7 +19,7 @@ export default function WishList() {
 
   return (
     <div className="flex flex-wrap gap-y-6">
-      <h2 className="text-xl font-bold">ვიშლისტი</h2>
+      <h2 className="text-xl font-bold"> {t("profilePage.wishList.title")}</h2>
       <div className="border-b-2 w-full border-light-grey"></div>
       {likedProducts.map((product) => (
         <div key={product?.likedProduct.id} className="relative">
@@ -56,7 +58,7 @@ export default function WishList() {
 
             <div className="flex flex-row gap-2">
               <Button
-                title="დამატება"
+                title={t("buttons.addToCart")}
                 className="bg-orange text-black rounded-md text-sm"
                 icon={<CartIcon width="20px" height="20px" />}
                 onClick={() => addToCart(product.likedProduct)}

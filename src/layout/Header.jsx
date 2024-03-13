@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import Search from "../components/search/Index";
 import Button from "../components/button/Index";
@@ -22,6 +23,7 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const scrollDirection = useScrollDirection();
+  const { t } = useTranslation("global");
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -68,7 +70,7 @@ export default function Header() {
             {/* Navigation button */}
             <Link to="/categories">
               <Button
-                title="ნავიგაცია"
+                title={t("header.navigation")}
                 icon={<DotsIcon />}
                 className="bg-primary text-white"
               />
@@ -79,28 +81,28 @@ export default function Header() {
             <div className="flex gap-[5px]">
               <Link to="/cart">
                 <Button
-                  title="კალათა"
+                  title={t("header.cart")}
                   icon={<CartIcon width="24px" height="24px" />}
                   className="bg-white text-black"
                 />
               </Link>
 
               {cartProducts.length > 0 && (
-                <span className="bg-primary rounded-full text-white relative top-[-10px] right-[90px] w-6 h-6 text-center">
+                <span className="bg-primary rounded-full text-white relative top-[-10px] right-[20px] w-6 h-6 text-center">
                   {cartProducts.reduce((total, item) => total + item.count, 0)}
                 </span>
               )}
 
               {localStorage.getItem("accessToken") ? (
                 <Button
-                  title="პროფილი"
+                  title={t("header.profile")}
                   icon={<UserIcon />}
                   className="bg-white text-black"
                   onClick={handleProfilePage}
                 />
               ) : (
                 <Button
-                  title="შესვლა"
+                  title={t("header.logIn")}
                   icon={<UserIcon />}
                   className="bg-white text-black"
                   onClick={handleShow}

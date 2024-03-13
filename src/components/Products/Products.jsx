@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Slider from "../slider/DefaultSlider";
 import { getProducts } from "../../services/services";
+import { useTranslation } from "react-i18next";
 
 const Products = () => {
   const [saleProducts, setSaleProducts] = useState([]);
   const [smartPhones, setSmartPhones] = useState([]);
   const [laptops, setLaptops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation("global");
 
   const fetchProducts = async () => {
     try {
@@ -46,9 +48,9 @@ const Products = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <Slider title="ფასდაკლებული პროდუქტები" products={saleProducts} />
-          <Slider title="სმარტფონები" products={smartPhones} />
-          <Slider title="ლეპტოპები" products={laptops} />
+          <Slider title={t("sliders.onlySales")} products={saleProducts} />
+          <Slider title={t("sliders.smartphones")} products={smartPhones} />
+          <Slider title={t("sliders.laptops")} products={laptops} />
         </>
       )}
     </div>

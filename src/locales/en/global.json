@@ -1,0 +1,145 @@
+{
+  "header": {
+    "cart": "Cart",
+    "navigation": "Navigation",
+    "profile": "Profile",
+    "logIn": "Log In"
+  },
+  "sliders": {
+    "onlySales": "Only sales",
+    "smartphones": "Smartphones",
+    "laptops": "Laptops",
+    "similarProducts": "Similar Products"
+  },
+  "footer": {
+    "aboutUs": {
+      "title": "About Us",
+      "description1": "twelve-years history, of development",
+      "description2": "It has already been 12 years since Zoommer appeared in the digital technics market. During these years, the company successfully established itself in the retail sales field and keeps its leading position steadily. Zoommer offers its consumers products from the world brands for the best price in Georgia.",
+      "description3": "The company has entered the digital technics market in the October of 2009 with just one shop, and today, it combines 17 branch stores and more than 200 employees throughout the country.",
+      "description4": "Zoommer is a retail chain of smartphones, digital cameras, laptops and audio/video technics. It should be noted, that the company was founded entirely with Georgian investment. 12 years ago, Zoommer was a startup from young entrepreneurs and during the years, it grew into the large retail chain.",
+      "description5": "It should be noted, that the company was founded entirely with Georgian investment and 12 years ago, it was a startup from young entrepreneurs, which, during the years, grew into the large retail chain)."
+    },
+    "corporateSales": {
+      "title": "Corporate Sales",
+      "description1": "Zoommer's corporate clients are served by personal sales managers.",
+      "description2": "Corporate clients have the opportunity to take advantage of flexible payment schedules and special prices.",
+      "description3": "Same-day delivery of the order - if the customer orders before 13:00, the order will be delivered on the same day, otherwise - on the next working day;Order delivery to regions - maximum 3 working days; Delivery time depends on the region. In central cities, the order is processed in 2 working days, and in other cases - in 3 working days;Unfortunately, we cannot serve you with fast delivery to the following addresses: Lilo, Fonichala, Orkhevi, Airport, Avchala, Tsavkis, Okrokana, Tskneti",
+      "description5": "Thank you for using our service"
+    },
+    "paymentMethods": {
+      "title": "Payment Methods",
+      "description1": "When purchasing a product at the Zoommer chain, you can use the following payment methods:",
+      "method1": "Paying with cash;",
+      "method2": "Paying by a POS terminal;",
+      "method3": "Paying with a bank transfer;",
+      "method4": "Paying with Zoommer gift card;",
+      "method5": "Bank installment;",
+      "description2": "When making an online purchase on Zoommer website, you can use the following payment methods:",
+      "method6": "Paying online with Visa / MasterCard – card;",
+      "method7": "Paying with a bank transfer;",
+      "method8": "Paying with Zoommer gift card;",
+      "method9": "Online installment."
+    },
+    "navigation": "Navigation",
+    "payment": "Payment",
+    "followUs": "Follow Us",
+    "contact": "Contact"
+  },
+  "breadCrumb": {
+    "main": "Main"
+  },
+  "buttons": {
+    "addToCart": "Add",
+    "purchase": "Buy",
+    "update": "Update",
+    "signIn": "Log In",
+    "register": "Registration",
+    "good": "Well",
+    "submit": "Submit"
+
+  },
+  "prices": {
+    "productPrice": "Product price:",
+    "totalPrice": "Total price:"
+  },
+  "cartItemCount": {
+    "total": "There are {{count}} items in your cart"
+  },
+  "profilePage": {
+    "profileInfo": {
+      "updateProfile": "Edit profile",
+      "updatedProfile": "Updated profile"
+    },
+    "orders": {
+      "title": "Current orders",
+      "total": {
+        "price": "Total price",
+        "items": "Total products"
+      }
+    },
+    "wishList": {
+      "title": "Wish List"
+    },
+    "logOut": {
+      "title": "Log Out"
+    },
+    "welcome": {
+      "title": "Hello"
+    }
+  },
+  "sideBar": {
+    "profile": "Profile",
+    "orders": "Orders",
+    "wishList": "Wish List"
+  },
+  "placeholders": {
+    "search": "Search",
+    "phoneNumber": "Phone number",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "repeatPassword": "Repeat Password"
+  },
+  "modals": {
+    "logInModal": "Log In",
+    "notRegistered": "Not registered?",
+    "registrationModal": "Registration",
+    "successMessage": "Successful authentication",
+    "errorMessage": "User not found",
+     "validation": {
+      "required": "Please fill in all fields"
+    },
+    "registration": {
+      "validation": {
+    "phoneNumberLength": "Phone number must be 9 digits",
+    "passwordLength": "Password must be at least 8 characters long",
+    "confirmPassword": "Passwords do not match",
+    "emailFormat": "Email must be a valid email address",
+    "errorMessage": "Registration failed. Please try again later."
+  }
+}
+  },
+  "payment": {
+    "location": "Enter your location",
+    "successMessage": "Payment successful",
+    "validation": {
+      "required": "This field is required",
+      "invalidCardNumber": "Invalid card number",
+      "invalidName": "Invalid name",
+      "invalidExpiryDate": "Invalid expiry date",
+      "expiryYearRange": "Expiry year should be between {{minYear}} and {{maxYear}}",
+      "invalidExpiryMonth": "Expiry month should be between 01 and 12",
+      "invalidCVC": "Invalid CVC",
+      "location": "Enter your address"
+    }
+  },
+   "productNotFound": {
+    "title": "Product not found"
+  },
+   "toastifyMessages": {
+    "addToCart": "The product has been added to the cart",
+    "removeFromCart": "The product has been successfully removed"
+  }
+}

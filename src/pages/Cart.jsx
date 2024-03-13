@@ -5,9 +5,11 @@ import TrashIcon from "../components/icons/TrashIcon";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { addCartProducts, removeCartProducts } from "../services/services";
+import { useTranslation } from "react-i18next";
 
 export default function Cart() {
   const { cartProducts, setCartProducts, removeFromCart } = useCart();
+  const { t } = useTranslation("global");
 
   const nav = useNavigate();
 
@@ -81,12 +83,16 @@ export default function Cart() {
     );
   };
 
+  const cartItemCount = cartProducts.reduce(
+    (total, item) => total + item.count,
+    0
+  );
+
   return (
     <div className="container">
       <div className="pb-[20px] border-b-2">
         <p className="font-bold text-[28px] leading-7">
-          შენს კალათაში{" "}
-          {cartProducts.reduce((total, item) => total + item.count, 0)} ნივთია
+          {t("cartItemCount.total", { count: cartItemCount })}
         </p>
       </div>
       <div className="flex justify-between mt-[30px]">
@@ -118,7 +124,7 @@ export default function Cart() {
           <div className="p-[20px] w-[450px] h-[150px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
             <div className="flex justify-between items-center ">
               <h2 className="text-black font-bold text-[20px]">
-                გადასახდელი თანხა
+                {t("prices.totalPrice")}
               </h2>
               <span className="font-bold text-[20px] text-primary">
                 {calculateTotalPrice().toFixed(2)}₾
@@ -126,7 +132,7 @@ export default function Cart() {
             </div>
             <div>
               <Button
-                title="ყიდვა"
+                title={t("buttons.purchase")}
                 className="bg-primary text-white w-[411px]"
                 onClick={handlePurchase}
               />

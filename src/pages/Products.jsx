@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Product from "../components/products/Product";
 import { getProducts } from "../services/services";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Breadcrumb from "../components/breadcrumb/Index";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import ReactPaginate from "react-paginate";
 import LeftArrow from "../components/icons/LeftArrow";
 import RightArrow from "../components/icons/RightArrow";
+import { useTranslation } from "react-i18next";
 
 export default function ProductsPage() {
   const [productsData, setProductsData] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const { t } = useTranslation("global");
 
   const categoryName = queryParams.get("categoryName");
   const [minPrice, setMinPrice] = useState(0);
@@ -36,7 +38,7 @@ export default function ProductsPage() {
   }, [location.search, minPrice, maxPrice, page, pageSize]);
 
   const breadcrumbs = [
-    { label: "მთავარი", path: "/" },
+    { label: t("breadCrumb.main"), path: "/" },
     {
       label: categoryName ? categoryName : "product category",
       path: `/products?categoryName=${categoryName}`,
@@ -115,7 +117,9 @@ export default function ProductsPage() {
               ))
             ) : (
               <div className="flex flex-col justify-center mt-8">
-                <p className="text-lg font-bold mb-4">პროდუქტი ვერ მოიძებნა</p>
+                <p className="text-lg font-bold mb-4">
+                  {t("productNotFound.title")}
+                </p>
               </div>
             )}
           </div>

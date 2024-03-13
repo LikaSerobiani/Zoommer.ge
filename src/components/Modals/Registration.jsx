@@ -5,6 +5,7 @@ import Button from "../button/Index";
 import { registration } from "../../services/services";
 import Success from "./Success";
 import Error from "./Error";
+import { useTranslation } from "react-i18next";
 
 const Registration = ({ showModal, handleClose, onRegistered }) => {
   const [firstName, setFirstName] = useState("");
@@ -16,10 +17,27 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
   const [errors, setErrors] = useState({});
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const { t } = useTranslation("global");
 
   const handleRegister = async () => {
     try {
       setErrors({});
+
+      const validationMessages = {
+        required: t("modals.validation.required"),
+        phoneNumberLengthErrorMessage: t(
+          "modals.registration.validation.phoneNumberLength"
+        ),
+        passwordLengthErrorMessage: t(
+          "modals.registration.validation.passwordLength"
+        ),
+        confirmPasswordErrorMessage: t(
+          "modals.registration.validation.confirmPassword"
+        ),
+        emailFormatErrorMessage: t(
+          "modals.registration.validation.emailFormat"
+        ),
+      };
 
       if (
         !firstName ||
@@ -29,25 +47,27 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
         !phoneNumber ||
         !confirmPassword
       ) {
-        setErrors({ message: "გთხოვთ შეავსოთ ყველა ველი" });
+        setErrors({
+          message: validationMessages.required,
+        });
         return;
       }
 
       const errors = {};
 
       if (phoneNumber.length !== 9) {
-        errors.phoneNumber = "ტელეფონის ნომერი უნდა იყოს 9 ციფრიანი";
+        errors.phoneNumber = validationMessages.phoneNumberLengthErrorMessage;
       }
 
       if (password.length < 8) {
-        errors.password = "პაროლი უნდა იყოს 8 სიმბოლოზე მეტი ან ტოლი";
+        errors.password = validationMessages.passwordLengthErrorMessage;
       }
       if (password !== confirmPassword) {
-        errors.confirmPassword = "პაროლი არასწორია";
+        errors.confirmPassword = validationMessages.confirmPasswordErrorMessage;
       }
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
-        errors.email = "ელფოსტა უნდა იყოს მოქმედი ელფოსტის მისამართი";
+        errors.email = validationMessages.emailFormatErrorMessage;
       }
 
       if (Object.keys(errors).length > 0) {
@@ -88,7 +108,9 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
     <>
       <Modal isModalOpen={showModal} onClose={handleClose}>
         <div className="flex justify-center flex-col gap-4">
-          <h2 className="text-center text-2xl font-bold">რეგისტრაცია</h2>
+          <h2 className="text-center text-2xl font-bold">
+            {t("modals.registrationModal")}
+          </h2>
 
           {errors.message && (
             <div className="text-red-500 text-sm">{errors.message}</div>
@@ -97,21 +119,21 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
           <div className="flex gap-4 flex-col items-center">
             <Input
               type="text"
-              placeholder="სახელი"
+              placeholder={t("placeholders.firstName")}
               id="firstNameInput"
               value={firstName}
               onChange={(e) => setFirstName(e)}
             />
             <Input
               type="text"
-              placeholder="გვარი"
+              placeholder={t("placeholders.lastName")}
               id="lastNameInput"
               value={lastName}
               onChange={(e) => setLastName(e)}
             />
             <Input
               type="email"
-              placeholder="ელ.ფოსტა"
+              placeholder={t("placeholders.email")}
               id="emailInput"
               value={email}
               onChange={(e) => setEmail(e)}
@@ -122,7 +144,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
             <Input
               type="text"
               id="phoneNumberInput"
-              placeholder="ტელეფონის ნომერი"
+              placeholder={t("placeholders.phoneNumber")}
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e)}
             />
@@ -131,7 +153,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
             )}
             <Input
               type="password"
-              placeholder="პაროლი"
+              placeholder={t("placeholders.password")}
               id="passwordInput"
               value={password}
               onChange={(e) => setPassword(e)}
@@ -141,7 +163,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
             )}
             <Input
               type="password"
-              placeholder="დაადასტურეთ პაროლი"
+              placeholder={t("placeholders.repeatPassword")}
               id="confirmPasswordInput"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e)}
@@ -156,7 +178,7 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
           <div className="flex justify-center">
             <Button
               onClick={handleRegister}
-              title="რეგისტრაცია"
+              title={t("modals.registrationModal")}
               className="bg-primary text-white w-full"
               type="submit"
             />
@@ -164,12 +186,12 @@ const Registration = ({ showModal, handleClose, onRegistered }) => {
         </div>
       </Modal>
       <Success
-        title="წარმატებული რეგისტრაცია"
+        title={t("modals.successMessage")}
         showModal={showSuccessModal}
         handleClose={() => setShowSuccessModal(false)}
       />
       <Error
-        title="მომხმარებელი უკვე დარეგისტრირებულია"
+        title={t("modals.errorMessage")}
         showModal={showErrorModal}
         handleClose={() => setShowErrorModal(false)}
       />

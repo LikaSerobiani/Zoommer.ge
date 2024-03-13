@@ -1,43 +1,47 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function PaymentMethods() {
+  const { t } = useTranslation("global");
+
   return (
     <div className="my-[30px]">
       <div className="container">
         <div className="border-b-[2px] border-light-grey pb-[30px] mb-[30px]">
           <h1 className="font-bold text-[16px] text-black leading-6">
-            გადახდის მეთოდები
+            {t("footer.paymentMethods.title")}
           </h1>
         </div>
         <div className="flex flex-col gap-[30px]">
           {/* heading */}
-          <h1 className="font-bold text-[30px]">გადახდის მეთოდები</h1>
+          <h1 className="font-bold text-[30px]">
+            {" "}
+            {t("footer.paymentMethods.title")}
+          </h1>
           {/* description */}
           <div className="flex gap-y-[15px] flex-col w-[70%]">
             <div className="flex flex-col gap-8">
               <h1 className="font-bold">
-                ზუმერის ქსელში პროდუქციის შეძენისას შეგიძლიათ ისარგებლოთ
-                გადახდის შემდეგი მეთოდებით:
+                {t("footer.paymentMethods.description1")}
               </h1>
               <div className="flex flex-col gap-5">
-                <span>გადახდა ნაღდი ანგარიშსწორებით;</span>
-                <span>გადახდა საბანკო ტერმინალით;</span>
-                <span>გადახდა საბანკო გადარიცხვით;</span>
-                <span>გადახდა ზუმერის სასაჩუქრე ბარათით;</span>
-                <span>საბანკო განვადება;</span>
+                <span>{t("footer.paymentMethods.method1")}</span>
+                <span>{t("footer.paymentMethods.method2")}</span>
+                <span>{t("footer.paymentMethods.method3")}</span>
+                <span>{t("footer.paymentMethods.method4")}</span>
+                <span>{t("footer.paymentMethods.method5")}</span>
               </div>
             </div>
             <div className="flex flex-col gap-8">
               <h1 className="font-bold">
-                ზუმერის საიტზე ონლაინ შეძენსას შეგიძლიათ ისარგებლოთ გადახდის
-                შემდეგი მეთოდებით:
+                {t("footer.paymentMethods.description2")}
               </h1>
               <div className="flex flex-col gap-5">
-                <span>გადახდა ონლაინ Visa / MasterCard - ბარათით;</span>
-                <span>საბანკო გადარიცხვით</span>
-                <span>გადახდა ზუმერის სასაჩუქრე ბარათით;</span>
-                <span>ონლაინ განვადება;</span>
+                <span>{t("footer.paymentMethods.method6")}</span>
+                <span>{t("footer.paymentMethods.method7")}</span>
+                <span>{t("footer.paymentMethods.method8")}</span>
+                <span>{t("footer.paymentMethods.method9")}</span>
               </div>
             </div>
           </div>

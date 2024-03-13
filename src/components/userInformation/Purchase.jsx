@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getPurchases } from "../../services/services";
+import { useTranslation } from "react-i18next";
 
 export default function Purchase() {
   const [purchases, setPurchases] = useState([]);
+  const { t } = useTranslation("global");
 
   const fetchData = async () => {
     try {
@@ -19,17 +21,24 @@ export default function Purchase() {
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className=" text-lg font-bold">მიმდინარე შეკვეთები</h2>
+      <h2 className=" text-lg font-bold"> {t("profilePage.orders.title")}</h2>
       <div className="border-b-2 w-full border-light-grey"></div>
-      <div className="flex gap-10 flex-wrap">
+      <div className="flex items-center gap-6 flex-wrap justify-center">
         {purchases.map((purchase) => (
-          <div key={purchase.id}>
+          <div
+            key={purchase.id}
+            className="bg-light-grey px-4 py-4 border rounded-md"
+          >
             <p>
-              <span className="font-bold">სულ გადახდილია:</span>{" "}
-              <span className="text-lime-600"> {purchase.totalPrice} ₾</span>
+              <span className="font-bold">
+                {t("profilePage.orders.total.price")}:
+              </span>{" "}
+              <span className="text-lime-600"> {purchase.totalPrice}₾</span>
             </p>
             <p>
-              <span className="font-bold">ნივთების რაოდენობა:</span>{" "}
+              <span className="font-bold">
+                {t("profilePage.orders.total.items")}:
+              </span>{" "}
               <span className="text-secondary"> {purchase.totalItems}</span>
             </p>
           </div>
