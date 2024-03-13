@@ -57,7 +57,6 @@
     "register": "Registration",
     "good": "Well",
     "submit": "Submit"
-
   },
   "prices": {
     "productPrice": "Product price:",
@@ -108,18 +107,18 @@
     "registrationModal": "Registration",
     "successMessage": "Successful authentication",
     "errorMessage": "User not found",
-     "validation": {
+    "validation": {
       "required": "Please fill in all fields"
     },
     "registration": {
       "validation": {
-    "phoneNumberLength": "Phone number must be 9 digits",
-    "passwordLength": "Password must be at least 8 characters long",
-    "confirmPassword": "Passwords do not match",
-    "emailFormat": "Email must be a valid email address",
-    "errorMessage": "Registration failed. Please try again later."
-  }
-}
+        "phoneNumberLength": "Phone number must be 9 digits",
+        "passwordLength": "Password must be at least 8 characters long",
+        "confirmPassword": "Passwords do not match",
+        "emailFormat": "Email must be a valid email address",
+        "errorMessage": "Registration failed. Please try again later."
+      }
+    }
   },
   "payment": {
     "location": "Enter your location",
@@ -135,10 +134,10 @@
       "location": "Enter your address"
     }
   },
-   "productNotFound": {
+  "productNotFound": {
     "title": "Product not found"
   },
-   "toastifyMessages": {
+  "toastifyMessages": {
     "addToCart": "The product has been added to the cart",
     "removeFromCart": "The product has been successfully removed"
   }

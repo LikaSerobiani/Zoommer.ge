@@ -58,7 +58,6 @@
     "register": "რეგისტრაცია",
     "good": "კარგი",
     "submit": "დადასტურება"
-
   },
   "prices": {
     "productPrice": "პროდუქტის ფასი:",
@@ -109,24 +108,23 @@
     "registrationModal": "რეგისტრაცია",
     "successMessage": "წარმატებული ავტორიზაცია",
     "errorMessage": "მომხმარებელი ვერ მოიძებნა",
-     "validation": {
+    "validation": {
       "required": "გთხოვთ შეავსოთ ყველა ველი"
-      },
-      "registration": {
-        "validation": {
-    "phoneNumberLength": "ტელეფონის ნომერი უნდა იყოს 9 ციფრიანი",
-    "passwordLength": "პაროლი უნდა იყოს 8 სიმბოლოზე მეტი ან ტოლი",
-    "confirmPassword": "პაროლი არასწორია",
-    "emailFormat": "ელფოსტა უნდა იყოს მოქმედი ელფოსტის მისამართი",
-    "errorMessage": "რეგისტრაცია ვერ მოხერხდა. გთხოვთ, შეამოწმეთ მონაცემები და სცადოთ ხელახლა."
-  }
-}
-
+    },
+    "registration": {
+      "validation": {
+        "phoneNumberLength": "ტელეფონის ნომერი უნდა იყოს 9 ციფრიანი",
+        "passwordLength": "პაროლი უნდა იყოს 8 სიმბოლოზე მეტი ან ტოლი",
+        "confirmPassword": "პაროლი არასწორია",
+        "emailFormat": "ელფოსტა უნდა იყოს მოქმედი ელფოსტის მისამართი",
+        "errorMessage": "რეგისტრაცია ვერ მოხერხდა. გთხოვთ, შეამოწმეთ მონაცემები და სცადოთ ხელახლა."
+      }
+    }
   },
   "payment": {
-   "location": "ჩაწერეთ თქვენი ლოკაცია",
-   "successMessage": "წარმატებული გადახდა!",
-     "validation": {
+    "location": "ჩაწერეთ თქვენი ლოკაცია",
+    "successMessage": "წარმატებული გადახდა!",
+    "validation": {
       "required": "ეს ველი აუცილებელია",
       "invalidCardNumber": "არასწორი ბარათის ნომერი",
       "invalidName": "არასწორი სახელი",
@@ -136,7 +134,7 @@
       "invalidCVC": "არასწორი CVC",
       "location": "შეიყვანეთ თქვენი მისამართი"
     }
-  }, 
+  },
   "productNotFound": {
     "title": "პროდუქტი ვერ მოიძებნა"
   },
