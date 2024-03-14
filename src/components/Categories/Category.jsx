@@ -7,9 +7,9 @@ export default function Category({ category, onSelectCategory }) {
 
   return (
     <div onClick={handleClick}>
-      <div className="cursor-pointer px-3 py-3 hover:bg-white flex items-center gap-2">
+      <div className="cursor-pointer px-3 py-3 flex items-center gap-2">
         <img src={category.image} />
-        <span className="font-black text-black text-[14px]">
+        <span className="font-black text-black text-[14px] hover:text-primary">
           {category.name}
         </span>
       </div>

@@ -2,10 +2,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 export default function Sidebar({ onItemClick }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const handleItemClick = (page) => {
     onItemClick(page);
@@ -17,18 +19,21 @@ export default function Sidebar({ onItemClick }) {
       <li
         onClick={() => handleItemClick("Profile")}
         style={{ fontWeight: selectedItem === "Profile" ? "bold" : "normal" }}
+        className={`${isDarkMode ? "text-white" : "text-black"}`}
       >
         {t("sideBar.profile")}
       </li>
       <li
         onClick={() => handleItemClick("Purchase")}
         style={{ fontWeight: selectedItem === "Purchase" ? "bold" : "normal" }}
+        className={`${isDarkMode ? "text-white" : "text-black"}`}
       >
         {t("sideBar.orders")}
       </li>
       <li
         onClick={() => handleItemClick("WishList")}
         style={{ fontWeight: selectedItem === "WishList" ? "bold" : "normal" }}
+        className={`${isDarkMode ? "text-white" : "text-black"}`}
       >
         {t("sideBar.wishList")}
       </li>

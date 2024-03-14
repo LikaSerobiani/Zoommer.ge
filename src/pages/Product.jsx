@@ -10,6 +10,7 @@ import LoginModal from "../components/modals/Login";
 import { useLikedProducts } from "../context/LikedProducts";
 import LikeIcon from "../components/icons/LikeIcon";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeSwitcher";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -24,6 +25,7 @@ export default function ProductPage() {
   const isAuthenticated = localStorage.getItem("accessToken");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const fetchData = async (productId) => {
     try {
@@ -108,32 +110,39 @@ export default function ProductPage() {
             </nav>
           </div>
           {/* information */}
-          <div className="flex justify-between mb-[50px]">
-            <div className="relative">
-              <div
-                className="absolute top-[15px] right-0 m-2 cursor-pointer"
-                onClick={() =>
-                  isProductLiked
-                    ? removeLikedProduct(likedProducts[0].id)
-                    : addLikedProduct(productData)
-                }
+          <div className="flex justify-between mb-[50px] relative">
+            <div className="flex flex-col gap-3">
+              <p
+                className={`text-[16px] leading-4 font-bold  ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
               >
-                <LikeIcon color={isProductLiked ? "red" : "grey"} />{" "}
-              </div>
-              <div>
-                <p className="text-[16px] leading-4 font-bold text-black">
-                  {productData ? productData.title : ""}
-                </p>
-                <img
-                  src={productData?.image}
-                  alt={productData?.title || "Product"}
-                  className="w-full h-56 object-contain"
-                />
-              </div>
+                {productData ? productData.title : ""}
+              </p>
+              <img
+                src={productData?.image}
+                alt={productData?.title || "Product"}
+                className="w-full h-56 object-contain"
+              />
             </div>
 
+            <div
+              className="absolute cursor-pointer right-0"
+              onClick={() =>
+                isProductLiked
+                  ? removeLikedProduct(likedProducts[0].id)
+                  : addLikedProduct(productData)
+              }
+            >
+              <LikeIcon color={isProductLiked ? "red" : "grey"} />{" "}
+            </div>
+            {/* Description */}
             <div>
-              <p className="text-gray-500 w-[400px]">
+              <p
+                className={` w-[400px] ${
+                  isDarkMode ? "text-white" : "text-dark-grey"
+                }`}
+              >
                 {productData ? productData.description : ""}
               </p>
             </div>
@@ -167,8 +176,16 @@ export default function ProductPage() {
 
             <Button
               title={t("buttons.addToCart")}
-              className="bg-orange text-black rounded-[12px] text-[13px] w-[411px]"
-              icon={<CartIcon width="20px" height="20px" />}
+              className={`bg-orange rounded-[12px] text-[13px] w-[411px] ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+              icon={
+                <CartIcon
+                  width="20px"
+                  height="20px"
+                  color={isDarkMode ? "#ffffff" : "#000000"}
+                />
+              }
               onClick={handleAddToCart}
             />
           </div>
@@ -177,7 +194,7 @@ export default function ProductPage() {
 
       {similarProducts.length > 0 && (
         <div>
-          <h3 className="font-bold text-xl text-primary">
+          <h3 className="font-bold text-xl mb-[20px] text-primary">
             {t("sliders.similarProducts")}
           </h3>
           <div className="similar-products">

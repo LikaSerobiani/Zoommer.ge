@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../button/Index";
 import { updateUserDetails, getUserDetails } from "../../services/services";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 export default function Profile() {
   const [userData, setUserData] = useState({
@@ -10,6 +11,7 @@ export default function Profile() {
     phone_number: "",
   });
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const [updatedUserData, setUpdatedUserData] = useState(null);
 
@@ -51,7 +53,11 @@ export default function Profile() {
     <div className="flex justify-between">
       {/* Update profile */}
       <div className="w-[500px] flex flex-col gap-5">
-        <p className="font-bold text-[20px]">
+        <p
+          className={`font-bold text-[20px] ${
+            isDarkMode ? "text-white" : "text-black"
+          }`}
+        >
           {" "}
           {t("profilePage.profileInfo.updateProfile")}
         </p>
@@ -91,7 +97,11 @@ export default function Profile() {
       {/* Updated profile */}
       {updatedUserData && (
         <div className="w-[500px] flex flex-col gap-5">
-          <h2 className="font-bold text-[20px]">
+          <h2
+            className={`font-bold text-[20px] ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
             {t("profilePage.profileInfo.updatedProfile")}
           </h2>
           <div className="bg-light-grey rounded-[16px] p-[20px] flex flex-col gap-3">

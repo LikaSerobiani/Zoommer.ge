@@ -30,7 +30,7 @@
 }
 
 .input-range__label {
-  @apply text-[#000000] text-sm font-bold;
+  @apply text-black text-sm font-bold dark:text-white;
 }
 .input-range__track--background,
 .input-range__slider-container {

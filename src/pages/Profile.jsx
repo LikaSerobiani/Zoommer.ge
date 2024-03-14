@@ -6,10 +6,12 @@ import Profile from "../components/userInformation/Profile";
 import Purchase from "../components/userInformation/Purchase";
 import WishList from "../components/userInformation/WishList";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeSwitcher";
 
 const ProfilePage = () => {
   const nav = useNavigate();
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const [selectedPage, setSelectedPage] = useState(
     localStorage.getItem("selectedPage") || null
@@ -31,9 +33,13 @@ const ProfilePage = () => {
       <div className="flex flex-col gap-y-[20px]">
         <div className="flex justify-between items-center border-b-2 pb-[20px] w-full">
           <div className="flex gap-2 items-center">
-            <ProfileIcon />
+            <ProfileIcon color={`${isDarkMode ? "#fff" : "#292D32"}`} />
 
-            <p className="font-bold text-[20px]">
+            <p
+              className={`font-bold text-[20px] ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
               {" "}
               {t("profilePage.welcome.title")}
             </p>

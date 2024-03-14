@@ -17,29 +17,32 @@ import ProductPage from "./pages/Product";
 import ProductsPage from "./pages/Products";
 import { CartProvider } from "./context/Cart";
 import { LikedProductsProvider } from "./context/LikedProducts";
+import { ThemeProvider } from "./context/ThemeSwitcher.jsx";
 
 export default function App() {
   return (
-    <LikedProductsProvider>
-      {" "}
-      <CartProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/categories" element={<NavigationPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/corporate-sales" element={<CorporateSales />} />
-            <Route path="/payment-methods" element={<PaymentMethod />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </CartProvider>
-    </LikedProductsProvider>
+    <ThemeProvider>
+      <LikedProductsProvider>
+        {" "}
+        <CartProvider>
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/categories" element={<NavigationPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/corporate-sales" element={<CorporateSales />} />
+              <Route path="/payment-methods" element={<PaymentMethod />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </CartProvider>
+      </LikedProductsProvider>
+    </ThemeProvider>
   );
 }

@@ -6,10 +6,12 @@ import { useCart } from "../context/Cart";
 import { useNavigate } from "react-router-dom";
 import { addCartProducts, removeCartProducts } from "../services/services";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeSwitcher";
 
 export default function Cart() {
   const { cartProducts, setCartProducts, removeFromCart } = useCart();
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const nav = useNavigate();
 
@@ -100,7 +102,11 @@ export default function Cart() {
   return (
     <div className="container">
       <div className="pb-[20px] border-b-2">
-        <p className="font-bold text-[28px] leading-7">
+        <p
+          className={`font-bold text-[28px] leading-7 ${
+            isDarkMode ? "text-white" : "text-black"
+          }`}
+        >
           {t("cartItemCount.total", { count: cartItemCount })}
         </p>
       </div>

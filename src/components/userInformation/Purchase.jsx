@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getPurchases } from "../../services/services";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 export default function Purchase() {
   const [purchases, setPurchases] = useState([]);
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const fetchData = async () => {
     try {
@@ -21,7 +23,14 @@ export default function Purchase() {
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className=" text-lg font-bold"> {t("profilePage.orders.title")}</h2>
+      <p
+        className={`font-bold text-[20px] ${
+          isDarkMode ? "text-white" : "text-black"
+        }`}
+      >
+        {" "}
+        {t("profilePage.orders.title")}
+      </p>
       <div className="border-b-2 w-full border-light-grey"></div>
       <div className="flex items-center gap-6 flex-wrap justify-center">
         {purchases.map((purchase) => (

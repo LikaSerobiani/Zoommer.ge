@@ -6,12 +6,14 @@ import { useCart } from "../../context/Cart";
 import { useLikedProducts } from "../../context/LikedProducts";
 import LikeIcon from "../icons/LikeIcon";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 const Product = ({ product }) => {
   const { addToCart } = useCart();
   const { addLikedProduct, likedProducts, removeLikedProduct } =
     useLikedProducts();
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const nav = useNavigate();
 
@@ -36,7 +38,7 @@ const Product = ({ product }) => {
   };
 
   return (
-    <div className="relative h-80 w-52 bg-white rounded-lg p-2 cursor-pointer">
+    <div className="relative w-44 bg-white rounded-lg p-2 cursor-pointer flex flex-col justify-center">
       <div
         className="absolute top-0 right-0 m-2 "
         onClick={() =>
@@ -61,11 +63,19 @@ const Product = ({ product }) => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 ">
           <Button
             title={t("buttons.addToCart")}
-            className="bg-orange text-black rounded-md text-sm"
-            icon={<CartIcon width="20px" height="20px" />}
+            className={`bg-orange rounded-md text-sm w-[170px] ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+            icon={
+              <CartIcon
+                width="20px"
+                height="20px"
+                color={isDarkMode ? "#ffffff" : "#000000"}
+              />
+            }
             onClick={() => addToCart(product)}
           />
         </div>

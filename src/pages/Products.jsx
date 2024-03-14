@@ -9,12 +9,14 @@ import ReactPaginate from "react-paginate";
 import LeftArrow from "../components/icons/LeftArrow";
 import RightArrow from "../components/icons/RightArrow";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeSwitcher";
 
 export default function ProductsPage() {
   const [productsData, setProductsData] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   const categoryName = queryParams.get("categoryName");
   const [minPrice, setMinPrice] = useState(0);
@@ -117,7 +119,11 @@ export default function ProductsPage() {
               ))
             ) : (
               <div className="flex flex-col justify-center mt-8">
-                <p className="text-lg font-bold mb-4">
+                <p
+                  className={`text-lg font-bold mb-4 ${
+                    isDarkMode ? "text-white" : "text-black"
+                  }`}
+                >
                   {t("productNotFound.title")}
                 </p>
               </div>
@@ -126,16 +132,24 @@ export default function ProductsPage() {
           <div className="mt-10 flex items-center">
             <div className="pagination rounded-md py-2 px-1">
               <ReactPaginate
-                previousLabel={<LeftArrow />}
-                nextLabel={<RightArrow />}
+                previousLabel={
+                  <LeftArrow color={isDarkMode ? "#ffffff" : "#000000"} />
+                }
+                nextLabel={
+                  <RightArrow color={isDarkMode ? "#ffffff" : "#000000"} />
+                }
                 pageCount={2}
                 pageRangeDisplayed={8}
                 onPageChange={handlePageClick}
                 containerClassName="flex"
-                pageClassName="px-3 py-1 mx-1 rounded-md cursor-pointer"
-                activeClassName="bg-gray-300 text-white"
-                previousClassName="py-1.5 px-2.5 border border-gray-300 rounded-md cursor-pointer text-center"
-                nextClassName="py-1.5 px-2.5 border border-gray-300 rounded-md cursor-pointer"
+                pageClassName={`px-3 py-1 mx-1 rounded-md cursor-pointer ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+                activeClassName={`bg-gray-300 ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+                previousClassName="py-1.5 px-2.5 border border-gray-300 rounded-md cursor-pointer flex items-center"
+                nextClassName="py-1.5 px-2.5 border border-gray-300 rounded-md cursor-pointer flex items-center"
               />
             </div>
           </div>

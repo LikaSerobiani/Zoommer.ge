@@ -5,8 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import PrevSlideIcon from "../icons/PrevSlideIcon";
 import NextSlideIcon from "../icons/NextSlideIcon";
 import Product from "../products/Product";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 export default function DefaultSlider({ title, products }) {
+  const { isDarkMode } = useTheme();
+
   if (!products) {
     return null;
   }
@@ -17,7 +20,7 @@ export default function DefaultSlider({ title, products }) {
     arrows: false,
     dots: false,
     speed: 600,
-    slidesToShow: 5,
+    slidesToShow: 5.7,
     slidesToScroll: 1,
   };
 
@@ -35,7 +38,13 @@ export default function DefaultSlider({ title, products }) {
 
   return (
     <div className="relative mt-[50px]">
-      <h2 className="mb-4 text-xl font-bold">{title}</h2>
+      <h2
+        className={`mb-4 text-xl font-bold ${
+          isDarkMode ? "text-white" : "text-black"
+        }`}
+      >
+        {title}
+      </h2>
 
       <div className="absolute top-1/2 left-1 transform -translate-y-1/2 z-10 flex justify-center items-center cursor-pointer rounded-full shadow-md">
         <button onClick={goToPrev}>

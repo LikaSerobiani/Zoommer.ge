@@ -1,8 +1,9 @@
-/* eslint-disable react/no-children-prop */
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeSwitcher";
+import { useCart } from "../context/Cart";
+import useScrollDirection from "../hooks/UseScrollDirection";
 
 import Search from "../components/search/Index";
 import Button from "../components/button/Index";
@@ -14,8 +15,6 @@ import UserIcon from "../components/icons/UserIcon";
 import DotsIcon from "../components/icons/DotsIcon";
 import Login from "../components/modals/Login";
 import PhoneIcon from "../components/icons/PhoneIcon";
-import useScrollDirection from "../hooks/UseScrollDirection";
-import { useCart } from "../context/Cart";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -24,6 +23,7 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const scrollDirection = useScrollDirection();
   const { t } = useTranslation("global");
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -42,7 +42,7 @@ export default function Header() {
         scrollDirection === "down" ? "-top-24" : "top-0"
       } transition-all duration-500 pb-[50px] z-50`}
     >
-      <div className="bg-primary py-3">
+      <div className="py-3 bg-primary">
         <div className="container flex items-center justify-between">
           <div className="flex gap-[10px]">
             <PhoneIcon />
@@ -50,10 +50,22 @@ export default function Header() {
               *7007 / +995 (32) 2 60 30 60
             </span>
           </div>
+          <div>
+            <button
+              onClick={toggleTheme}
+              className="bg-white hover:bg-primary text-black rounded-[20px] text-[13px] px-2 font-bold"
+            >
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="bg-light-grey w-[100%] h-[70px] flex justify-center">
+      <div
+        className={`w-[100%] h-[70px] flex justify-center ${
+          isDarkMode ? "dark:bg-black text-white" : "bg-light-grey text-black"
+        }`}
+      >
         <div className="container flex flex-row items-center justify-between">
           {/* Logo */}
           <div>
@@ -72,7 +84,7 @@ export default function Header() {
               <Button
                 title={t("header.navigation")}
                 icon={<DotsIcon />}
-                className="bg-primary text-white"
+                className="text-white bg-primary"
               />
             </Link>
             {/* Search */}
@@ -82,13 +94,27 @@ export default function Header() {
               <Link to="/cart">
                 <Button
                   title={t("header.cart")}
-                  icon={<CartIcon width="24px" height="24px" />}
-                  className="bg-white text-black"
+                  icon={
+                    <CartIcon
+                      width="24px"
+                      height="24px"
+                      color={isDarkMode ? "#ffffff" : "#000000"}
+                    />
+                  }
+                  className={` ${
+                    isDarkMode
+                      ? "dark:bg-primary text-white"
+                      : "bg-white text-black"
+                  }`}
                 />
               </Link>
 
               {cartProducts.length > 0 && (
-                <span className="bg-primary rounded-full text-white relative top-[-10px] right-[20px] w-6 h-6 text-center">
+                <span
+                  className={`rounded-full relative top-[-10px] right-[20px] w-6 h-6 text-center ${
+                    isDarkMode ? "bg-white text-black" : "bg-primary text-white"
+                  }`}
+                >
                   {cartProducts.reduce((total, item) => total + item.count, 0)}
                 </span>
               )}
@@ -96,15 +122,23 @@ export default function Header() {
               {localStorage.getItem("accessToken") ? (
                 <Button
                   title={t("header.profile")}
-                  icon={<UserIcon />}
-                  className="bg-white text-black"
+                  icon={<UserIcon color={isDarkMode ? "#ffffff" : "#000000"} />}
+                  className={` ${
+                    isDarkMode
+                      ? "dark:bg-primary text-white"
+                      : "bg-white text-black"
+                  }`}
                   onClick={handleProfilePage}
                 />
               ) : (
                 <Button
                   title={t("header.logIn")}
-                  icon={<UserIcon />}
-                  className="bg-white text-black"
+                  icon={<UserIcon color={isDarkMode ? "#ffffff" : "#000000"} />}
+                  className={` ${
+                    isDarkMode
+                      ? "dark:bg-primary text-white"
+                      : "bg-white text-black"
+                  }`}
                   onClick={handleShow}
                 />
               )}

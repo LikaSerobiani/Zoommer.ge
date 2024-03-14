@@ -6,6 +6,7 @@ import Success from "../modals/Success";
 import { useNavigate } from "react-router-dom";
 import { purchaseProducts } from "../../services/services";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 const PaymentForm = ({ paymentParams }) => {
   const [showLocationForm, setShowLocationForm] = useState(true);
@@ -15,6 +16,7 @@ const PaymentForm = ({ paymentParams }) => {
   const [userLocationError, setUserLocationError] = useState("");
   const { t } = useTranslation("global");
   const nav = useNavigate();
+  const { isDarkMode } = useTheme();
 
   const [state, setState] = useState({
     number: "",
@@ -159,7 +161,12 @@ const PaymentForm = ({ paymentParams }) => {
               onSubmit={handleLocationSubmit}
               className="flex flex-col gap-y-[10px] items-center w-[500px] h-[37vh]"
             >
-              <label htmlFor="location" className="font-bold text-[18px]">
+              <label
+                htmlFor="location"
+                className={`font-bold text-[18px] ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
                 {t("payment.location")}
               </label>
               <input

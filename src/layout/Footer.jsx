@@ -39,22 +39,22 @@ export default function Footer() {
   ];
   return (
     <footer>
-      <div className="bg-light-grey mt-[100px]">
+      <div className="mt-[100px] bg-light-grey">
         <div className="container py-[20px] flex gap-[120px]">
           {/* navigation */}
           <div className="flex flex-col gap-[10px]">
-            <div className="border-b-[1px] w-[190px] border-primary pb-[15px] mb-[5px]">
+            <div className="border-b-[1px] w-[190px] border-primary text-black pb-[15px] mb-[5px] cursor-pointer font-medium">
               <h2 className="text-[13px] font-bold">
                 {t("footer.navigation")}
               </h2>
             </div>
             <Link to="/about-us">
-              <span className="leading-5 text-[13px] cursor-pointer text-black font-medium">
+              <span className="leading-5 text-[13px]">
                 {t("footer.aboutUs.title")}
               </span>
             </Link>
             <Link to="/corporate-sales">
-              <span className="leading-5 text-[13px] cursor-pointer text-black font-medium">
+              <span className="leading-5 text-[13px]">
                 {t("footer.corporateSales.title")}
               </span>
             </Link>

@@ -95,19 +95,17 @@ export const CartProvider = ({ children }) => {
         setLoading(false);
       });
   };
-
+  const value = {
+    cartProducts,
+    setCartProducts,
+    fetchCartItems,
+    addToCart,
+    removeFromCart,
+    loading,
+    error,
+  };
   return (
-    <CartContext.Provider
-      value={{
-        cartProducts,
-        setCartProducts,
-        fetchCartItems,
-        addToCart,
-        removeFromCart,
-        loading,
-        error,
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
       {showLoginModal && (
         <LoginModal

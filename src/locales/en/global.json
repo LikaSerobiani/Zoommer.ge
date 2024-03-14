@@ -25,6 +25,7 @@
       "description1": "Zoommer's corporate clients are served by personal sales managers.",
       "description2": "Corporate clients have the opportunity to take advantage of flexible payment schedules and special prices.",
       "description3": "Same-day delivery of the order - if the customer orders before 13:00, the order will be delivered on the same day, otherwise - on the next working day;Order delivery to regions - maximum 3 working days; Delivery time depends on the region. In central cities, the order is processed in 2 working days, and in other cases - in 3 working days;Unfortunately, we cannot serve you with fast delivery to the following addresses: Lilo, Fonichala, Orkhevi, Airport, Avchala, Tsavkis, Okrokana, Tskneti",
+      "description4": "Order delivery to regions - maximum 3 working days; Delivery time depends on the region. In central cities, the order is processed in 2 working days, and in other cases - in 3 working days;Unfortunately, we cannot serve you with fast delivery to the following addresses: Lilo, Fonichala, Orkhevi, Airport, Avchala, Tsavkis, Okrokana, Tskneti",
       "description5": "Thank you for using our service"
     },
     "paymentMethods": {
@@ -140,5 +141,9 @@
   "toastifyMessages": {
     "addToCart": "The product has been added to the cart",
     "removeFromCart": "The product has been successfully removed"
+  },
+  "navigation": {
+    "categories": "Categories",
+    "products": "Maybe you could find the desired product here?"
   }
 }

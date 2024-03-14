@@ -72,15 +72,13 @@ export const LikedProductsProvider = ({ children }) => {
         });
       });
   };
-
+  const value = {
+    likedProducts,
+    addLikedProduct,
+    removeLikedProduct,
+  };
   return (
-    <LikedProductsContext.Provider
-      value={{
-        likedProducts,
-        addLikedProduct,
-        removeLikedProduct,
-      }}
-    >
+    <LikedProductsContext.Provider value={value}>
       {children}
       {showLoginModal && (
         <LoginModal

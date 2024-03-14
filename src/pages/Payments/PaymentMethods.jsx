@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeSwitcher";
 
 export default function PaymentMethods() {
   const { t } = useTranslation("global");
+  const { isDarkMode } = useTheme();
 
   return (
     <div className="my-[30px]">
-      <div className="container">
+      <div className={`container ${isDarkMode ? "text-white" : "text-black"}`}>
         <div className="border-b-[2px] border-light-grey pb-[30px] mb-[30px]">
-          <h1 className="font-bold text-[16px] text-black leading-6">
+          <h1 className="font-bold text-[16px] leading-6">
             {t("footer.paymentMethods.title")}
           </h1>
         </div>

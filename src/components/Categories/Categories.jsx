@@ -26,7 +26,7 @@ export default function Categories() {
 
   return (
     <div>
-      <div className="flex flex-col w-[240px] rounded-[12px] bg-light-grey">
+      <div className="flex flex-col justify-center w-[240px] h-[330px] rounded-lg bg-light-grey">
         {categories.map((category) => (
           <Category
             key={category.id}
