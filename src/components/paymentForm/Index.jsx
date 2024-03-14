@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import Button from "../button/Index";
@@ -37,10 +37,19 @@ const PaymentForm = ({ paymentParams }) => {
       setUserLocationError(t("payment.location"));
       return;
     }
-
+    localStorage.setItem("userLocation", userLocation);
     setShowLocationForm(false);
     setShowCardForm(true);
   };
+
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("userLocation");
+    if (savedLocation) {
+      setUserLocation(savedLocation);
+      setShowLocationForm(false);
+      setShowCardForm(true);
+    }
+  }, []);
 
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
