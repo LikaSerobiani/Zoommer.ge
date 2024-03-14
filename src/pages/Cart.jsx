@@ -51,8 +51,17 @@ export default function Cart() {
       });
   };
 
-  const handlePurchase = () => {
-    nav("/payment", { cartProducts });
+  const handlePurchase = async () => {
+    try {
+      const productData = {
+        totalPrice: calculateTotalPrice(),
+        totalItems: cartProducts.reduce((total, item) => total + item.count, 0),
+      };
+
+      nav(`/payment`, { state: { productData } });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const productItemActions = (product) => {
