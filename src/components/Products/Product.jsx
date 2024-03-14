@@ -2,8 +2,8 @@ import React from "react";
 import Button from "../button/Index";
 import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
-import { useLikedProducts } from "../../context/LikedProductsContext";
+import { useCart } from "../../context/Cart";
+import { useLikedProducts } from "../../context/LikedProducts";
 import LikeIcon from "../icons/LikeIcon";
 import { useTranslation } from "react-i18next";
 

@@ -15,7 +15,7 @@ import DotsIcon from "../components/icons/DotsIcon";
 import Login from "../components/modals/Login";
 import PhoneIcon from "../components/icons/PhoneIcon";
 import useScrollDirection from "../hooks/UseScrollDirection";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/Cart";
 
 export default function Header() {
   const navigate = useNavigate();

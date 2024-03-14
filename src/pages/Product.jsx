@@ -4,10 +4,10 @@ import { getProduct, getProducts } from "../services/services";
 import Breadcrumb from "../components/breadcrumb/Index";
 import Button from "../components/button/Index";
 import CartIcon from "../components/icons/CartIcon";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/Cart";
 import SimilarProductsSlider from "../components/slider/SimilarProducts";
 import LoginModal from "../components/modals/Login";
-import { useLikedProducts } from "../context/LikedProductsContext";
+import { useLikedProducts } from "../context/LikedProducts";
 import LikeIcon from "../components/icons/LikeIcon";
 import { useTranslation } from "react-i18next";
 

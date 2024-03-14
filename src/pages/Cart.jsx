@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../components/button/Index";
 import EmptyCartIcon from "../components/icons/EmptyCartIcon";
 import TrashIcon from "../components/icons/TrashIcon";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/Cart";
 import { useNavigate } from "react-router-dom";
 import { addCartProducts, removeCartProducts } from "../services/services";
 import { useTranslation } from "react-i18next";

@@ -15,8 +15,8 @@ import PaymentMethod from "./pages/payments/PaymentMethods";
 import CartPage from "./pages/Cart";
 import ProductPage from "./pages/Product";
 import ProductsPage from "./pages/Products";
-import { CartProvider } from "./context/CartContext";
-import { LikedProductsProvider } from "./context/LikedProductsContext";
+import { CartProvider } from "./context/Cart";
+import { LikedProductsProvider } from "./context/LikedProducts";
 
 export default function App() {
   return (

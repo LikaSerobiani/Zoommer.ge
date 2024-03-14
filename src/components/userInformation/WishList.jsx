@@ -1,6 +1,6 @@
 import React from "react";
-import { useLikedProducts } from "../../context/LikedProductsContext";
-import { useCart } from "../../context/CartContext";
+import { useLikedProducts } from "../../context/LikedProducts";
+import { useCart } from "../../context/Cart";
 import Button from "../button/Index";
 import CartIcon from "../icons/CartIcon";
 import { useNavigate } from "react-router-dom";
