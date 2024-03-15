@@ -22,6 +22,26 @@ export default function DefaultSlider({ title, products }) {
     speed: 600,
     slidesToShow: 5.7,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 3.1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          dots: false,
+        },
+      },
+    ],
   };
 
   const goToPrev = () => {

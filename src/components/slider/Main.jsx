@@ -34,7 +34,7 @@ export default function MainSlider() {
   };
 
   return (
-    <div className="relative max-w-[895px]">
+    <div className="relative max-w-[895px] md:hidden lg:block sm:hidden">
       <div className="absolute top-1/2 left-1 transform -translate-y-1/2 z-10 flex justify-center items-center cursor-pointer rounded-full shadow-md">
         <button onClick={goToPrev}>
           <PrevSlideIcon />

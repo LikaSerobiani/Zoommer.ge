@@ -40,7 +40,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="mt-[100px] bg-light-grey">
-        <div className="container py-[20px] flex gap-[120px]">
+        <div className="container py-[20px] flex lg:justify-between sm:flex-wrap sm:justify-center">
           {/* navigation */}
           <div className="flex flex-col gap-[10px]">
             <div className="border-b-[1px] w-[190px] border-primary text-black pb-[15px] mb-[5px] cursor-pointer font-medium">
@@ -110,7 +110,7 @@ export default function Footer() {
       </div>
       {/* Copyright section */}
       <div className="bg-light-grey border-t-[2px] border-white mb-[5px]">
-        <div className="container py-[20px] flex justify-between items-center">
+        <div className="container py-[20px] flex lg:justify-between items-center md:justify-around sm:justify-around">
           <p className="text-[14px] text-dark-grey leading-4 font-base">
             Copyright © 2024 Zoommer.ge. All rights reserved.
           </p>

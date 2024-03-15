@@ -40,10 +40,10 @@ export default function Header() {
     <header
       className={`sticky ${
         scrollDirection === "down" ? "-top-24" : "top-0"
-      } transition-all duration-500 pb-[50px] z-50`}
+      } transition-all duration-500  pb-[50px] z-50`}
     >
       <div className="py-3 bg-primary">
-        <div className="container flex items-center justify-between">
+        <div className="container flex items-center lg:justify-between sm:justify-around">
           <div className="flex gap-[10px]">
             <PhoneIcon />
             <span className="text-white font-bold text-[13px] flex cursor-pointer transition-transform transform-gpu hover:scale-110">
@@ -73,7 +73,7 @@ export default function Header() {
               <img
                 src={Logo}
                 alt="Zoommer logo"
-                className="w-[151px] h-[40px] cursor-pointer"
+                className="lg:w-[151px] h-[40px] cursor-pointer sm:w-[100px] md:w-[130px]"
               />
             </Link>
           </div>
