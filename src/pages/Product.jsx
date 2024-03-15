@@ -92,11 +92,11 @@ export default function ProductPage() {
 
   return (
     <div className="container">
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex lg:flex-row lg:justify-between items-center sm:flex-col">
         <div className="flex flex-col">
           {/* breadcrumb menu */}
           <div className="bread-crumb">
-            <nav className="border-b-2 border-light-grey pb-[20px] mb-[20px] w-[700px]">
+            <nav className="border-b-2 border-light-grey pb-[20px] mb-[20px] w-[700px] sm:w-[500px]">
               <ul className="flex flex-row gap-5">
                 {breadcrumbs.map((breadcrumb, index) => (
                   <Breadcrumb
@@ -110,7 +110,7 @@ export default function ProductPage() {
             </nav>
           </div>
           {/* information */}
-          <div className="flex justify-between mb-[50px] relative">
+          <div className="flex lg:justify-between mb-[50px] relative sm:gap-5">
             <div className="flex flex-col gap-3">
               <p
                 className={`text-[16px] leading-4 font-bold  ${
@@ -139,7 +139,7 @@ export default function ProductPage() {
             {/* Description */}
             <div>
               <p
-                className={` w-[400px] ${
+                className={` lg:w-[400px] sm:w-[200px] ${
                   isDarkMode ? "text-white" : "text-dark-grey"
                 }`}
               >
@@ -149,8 +149,8 @@ export default function ProductPage() {
           </div>
         </div>
         {/* price section */}
-        <div className="p-[20px] w-[450px] h-[200px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px]">
-          <div className="text-[20px] flex gap-5 items-center">
+        <div className="p-[20px] lg:w-[450px] h-[200px] bg-light-grey flex justify-center flex-col gap-y-[25px] rounded-[12px] sm:w-[500px] sm:items-center">
+          <div className="text-[20px] flex gap-5 lg:items-center">
             <h1 className="text-primary font-bold">
               {t("prices.productPrice")}
             </h1>
@@ -193,7 +193,7 @@ export default function ProductPage() {
       </div>
 
       {similarProducts.length > 0 && (
-        <div>
+        <div className="mt-[50px]">
           <h3 className="font-bold text-xl mb-[20px] text-primary">
             {t("sliders.similarProducts")}
           </h3>

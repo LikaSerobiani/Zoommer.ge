@@ -59,7 +59,7 @@ export default function SearchBar() {
         />
       </div>
       {searchResults.length > 0 && (
-        <ul className="absolute z-10 left-0 mt-1 w-[440px] bg-white border border-gray-200 rounded-md flex flex-col gap-y-5">
+        <ul className="absolute z-10 left-0 mt-1 lg:w-[440px] bg-white border border-gray-200 rounded-md flex flex-col gap-y-5 sm:w-[150px] md:w-[180px]">
           {searchResults.map((result) => (
             <li
               key={result.id}

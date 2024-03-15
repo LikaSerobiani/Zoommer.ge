@@ -50,9 +50,9 @@ export default function Profile() {
   }, [updatedUserData]);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex lg:justify-between md:flex-col md:gap-20 sm:flex-col sm:gap-20">
       {/* Update profile */}
-      <div className="w-[500px] flex flex-col gap-5">
+      <div className="lg:w-[500px] flex flex-col gap-5 sm:w-[400px]">
         <p
           className={`font-bold text-[20px] ${
             isDarkMode ? "text-white" : "text-black"
@@ -96,7 +96,7 @@ export default function Profile() {
       </div>
       {/* Updated profile */}
       {updatedUserData && (
-        <div className="w-[500px] flex flex-col gap-5">
+        <div className="lg:w-[500px] flex flex-col gap-5 sm:w-[400px]">
           <h2
             className={`font-bold text-[20px] ${
               isDarkMode ? "text-white" : "text-black"

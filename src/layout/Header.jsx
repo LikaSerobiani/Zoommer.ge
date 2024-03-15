@@ -43,7 +43,7 @@ export default function Header() {
       } transition-all duration-500  pb-[50px] z-50`}
     >
       <div className="py-3 bg-primary">
-        <div className="container flex items-center lg:justify-between sm:justify-around">
+        <div className="container flex items-center justify-between ">
           <div className="flex gap-[10px]">
             <PhoneIcon />
             <span className="text-white font-bold text-[13px] flex cursor-pointer transition-transform transform-gpu hover:scale-110">
@@ -73,7 +73,7 @@ export default function Header() {
               <img
                 src={Logo}
                 alt="Zoommer logo"
-                className="lg:w-[151px] h-[40px] cursor-pointer sm:w-[100px] md:w-[130px]"
+                className="lg:w-[151px] h-[40px] cursor-pointer sm:w-[120px] md:w-[130px]"
               />
             </Link>
           </div>
@@ -84,24 +84,24 @@ export default function Header() {
               <Button
                 title={t("header.navigation")}
                 icon={<DotsIcon />}
-                className="text-white bg-primary"
+                className="text-white bg-primary sm:w-[110px] sm:gap-1 lg:w-[130px] lg:gap-3"
               />
             </Link>
             {/* Search */}
             <Search />
             {/* Buttons */}
-            <div className="flex gap-[5px]">
+            <div className="flex gap-1">
               <Link to="/cart">
                 <Button
                   title={t("header.cart")}
                   icon={
                     <CartIcon
-                      width="24px"
-                      height="24px"
+                      width="20px"
+                      height="20px"
                       color={isDarkMode ? "#ffffff" : "#000000"}
                     />
                   }
-                  className={` ${
+                  className={`sm:w-[80px] lg:w-[130px] ${
                     isDarkMode
                       ? "dark:bg-primary text-white"
                       : "bg-white text-black"
@@ -123,7 +123,7 @@ export default function Header() {
                 <Button
                   title={t("header.profile")}
                   icon={<UserIcon color={isDarkMode ? "#ffffff" : "#000000"} />}
-                  className={` ${
+                  className={`sm:w-[90px] lg:w-[130px] ${
                     isDarkMode
                       ? "dark:bg-primary text-white"
                       : "bg-white text-black"
@@ -134,7 +134,7 @@ export default function Header() {
                 <Button
                   title={t("header.logIn")}
                   icon={<UserIcon color={isDarkMode ? "#ffffff" : "#000000"} />}
-                  className={` ${
+                  className={`sm:w-[100px] lg:w-[130px] ${
                     isDarkMode
                       ? "dark:bg-primary text-white"
                       : "bg-white text-black"

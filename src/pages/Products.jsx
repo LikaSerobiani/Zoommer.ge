@@ -72,7 +72,7 @@ export default function ProductsPage() {
         ))}
       </ul>
       {/* Filter */}
-      <div className="flex flex-row mt-10 gap-10">
+      <div className="flex lg:flex-row mt-10 gap-10 sm:justify-center">
         <div className="w-1/4 mt-10 flex flex-col gap-y-3">
           <InputRange
             minValue={0}
@@ -83,7 +83,7 @@ export default function ProductsPage() {
               setMaxPrice(value.max);
             }}
           />
-          <div className="flex flex-row justify-center mt-4 gap-4">
+          <div className="flex lg:flex-row justify-center mt-4 gap-4 md:flex-col sm:flex-col">
             <div className="flex items-center bg-white border border-primary py-[5px] px-2.5 rounded-md gap-2 ">
               <label htmlFor="minPrice" className="text-gray-600">
                 MIN:
@@ -111,7 +111,7 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        <div className="flex flex-col w-3/4 items-center">
+        <div className="flex flex-col lg:w-3/4 items-center sm:w-[400px]">
           <div className="flex flex-wrap gap-6">
             {productsData?.length > 0 ? (
               productsData.map((product) => (

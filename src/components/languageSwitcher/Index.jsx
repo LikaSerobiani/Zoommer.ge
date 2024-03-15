@@ -20,7 +20,7 @@ export default function LanguageSwitcher() {
       <Button
         onClick={toggleLanguage}
         title={currentLanguage.toUpperCase()}
-        className="bg-white text-black w-[70px] border border-black"
+        className="bg-white text-black w-[70px] border border-black "
       />
     </div>
   );
